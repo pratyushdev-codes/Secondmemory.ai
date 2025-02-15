@@ -169,7 +169,7 @@ const Data = () => {
           </button>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-2">
           <div className="flex items-center justify-between">
             <div className="hs-accordion-treeview-root" role="tree" aria-orientation="vertical">
               {treeData.map((node, index) => (

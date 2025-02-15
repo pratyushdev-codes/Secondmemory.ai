@@ -10,11 +10,17 @@ import { FileUploadCard } from '../components/FileUploadCard';
 import Data from '../components/data';
 import Activity from '../components/Activity';
 import ChatUI from '../components/ChatUI';
-
-import talktocode from './talktocode';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user } = useClerk();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/talktocode');
+  };
+
+
 
   return (
     <div className="min-h-screen bg-cover">
@@ -22,7 +28,7 @@ const Dashboard = () => {
         <div className="">
           <Sidebar />
         </div>
-
+        
         <div className="flex-1 h-screen bg-cover bg-center p-5 bg-[url('./images/3.jpg')]  rounded-br-md rounded-tr-xl">
           <NavigationBar />
           <div className="mb-6">
@@ -58,17 +64,20 @@ const Dashboard = () => {
                 <div className=" absolute transitiona-all duration-1000 opacity-50 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
                 </div>
 
-                <a href="" title="Talk to Code"
+                <button
+                  title="Talk to Code"
                   className="relative inline-flex items-center justify-center px-4 py-2 text-gray-300 transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                  role="button">
+                  role="button"
+                  onClick={handleClick}
+                >
                   <i className="fa-solid fa-terminal"></i>&nbsp; Talk to Code
-                </a>
+                </button>
               </div>
             </div>
           </div>
 
           <div className="h-[calc(100vh-16.7rem)] rounded-tl-2xl rounded-tr-2xl overflow-hidden shadow-lg bg-[#1a1f37]/80 backdrop-blur-sm border border-gray-700">
-            <ChatUI />
+          <ChatUI/>
           </div>
         </div>
 
@@ -92,7 +101,7 @@ const Dashboard = () => {
     
         </div>
       </div>
-      );
+  );
 };
 
-      export default Dashboard;
+export default Dashboard;

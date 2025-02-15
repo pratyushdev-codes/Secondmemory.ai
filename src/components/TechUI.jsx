@@ -1,6 +1,7 @@
 import React from 'react';
 import { CenterLogo, ProviderLogo } from '../components/Logo';
 import { Grid } from '../components/Grid';
+import { Brain, Bot , MessagesSquare, Code, Github } from 'lucide-react';
 
 export default function TechUI() {
   return (
@@ -9,41 +10,37 @@ export default function TechUI() {
         <Grid />
 
         <div className="text-center mb-20 relative">
-          <p className="text-gray-400 uppercase tracking-wider text-sm mb-4">INTEGRATE</p>
-          <h1 className="text-5xl font-semibold mb-4">Single copilot for all LLMs</h1>
+          <p className="text-gray-400 uppercase tracking-wider text-sm mb-4">SECONDMEMORY.ai</p>
+          <h1 className="text-4xl font-semibold mb-4">Single copilot for all your Knowledge</h1>
         </div>
 
         <div className="relative h-[400px]">
           <CenterLogo />
 
-          <ProviderLogo
-            src="https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.svg"
-            alt="Google AI"
-            className="absolute left-1/4 top-1/4 -translate-x-1/2 -translate-y-1/2 animate-float-1"
-          />
+            <div className="absolute left-1/4 top-1/4 -translate-x-1/2 -translate-y-1/2 animate-float-1 text-gray-400">
+            <Github size={48} />
+          </div>
 
-          <ProviderLogo
-            src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/anthropic.svg"
-            alt="Anthropic"
-            className="absolute right-1/4 top-1/4 translate-x-1/2 -translate-y-1/2 animate-float-2"
-          />
+            <div className="absolute right-1/4 top-1/4 translate-x-1/2 -translate-y-1/2 animate-float-2 text-gray-400">
+            <Code size={48} />
+          </div>
+          
+          <div className="absolute left-1/4 bottom-1/4 -translate-x-1/2 translate-y-1/2 animate-float-3 text-gray-400">
+            <MessagesSquare size={48} />
+          </div>
 
-          <ProviderLogo
-            src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nodered.svg"
-            alt="Local AI"
-            className="absolute left-1/4 bottom-1/4 -translate-x-1/2 translate-y-1/2 animate-float-3"
-          />
+          {/* <div className="absolute left-1/3 bottom-1/2 -translate-x-1/2 translate-y-1/2 animate-float-3 text-gray-400">
+            <Bot size={48} />
+          </div> */}
 
-          <ProviderLogo
-            src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/meta.svg"
-            alt="Meta AI"
-            className="absolute right-1/4 bottom-1/4 translate-x-1/2 translate-y-1/2 animate-float-4"
-          />
+          <div className="absolute right-1/4 bottom-1/4 translate-x-1/2 translate-y-1/2 animate-float-4 text-gray-400">
+            <Brain size={48} />
+          </div>
         </div>
 
         <div className="text-center mt-8 relative">
-          <p className="text-2xl text-gray-400">
-            Choose from leading cloud and local providers or use your own key.
+          <p className="text-xl text-gray-400">
+            Improve your Productivity, Code Quality ,Debug Code using RAG and AI Agents!
           </p>
         </div>
       </div>

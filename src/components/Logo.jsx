@@ -1,10 +1,10 @@
 import React from 'react';
 import { Paperclip } from 'lucide-react';
-
+import logo from "../../public/images/supermemoryailogo.svg";
 export const CenterLogo = () => (
   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black p-6 rounded-2xl shadow-lg z-10">
     <div className="w-20 h-20 flex items-center justify-center">
-      <Paperclip size={40} className="text-white animate-pulse" />
+      <img src={logo}/>
     </div>
   </div>
 );

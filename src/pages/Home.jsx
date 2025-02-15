@@ -1,6 +1,6 @@
 import Hero from "../components/Hero";
 import { Navbar } from "../components/Navbar";
-import Prize from "../components/prize";
+import Prize from "../components/Prize.jsx";
 import { AppleCardsCarouselDemo } from "../components/AppleCardsCarousel";
 import { GradualSpacingDemo } from "../components/GradualSpacingDemo";
 import Features from "../components/Features";

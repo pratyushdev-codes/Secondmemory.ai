@@ -11,10 +11,10 @@ function Features() {
           <div className="bg-black/30 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 h-[300px]">
             <div className="flex items-center gap-3 mb-4">
               <Terminal className="text-purple-400" size={24} />
-              <h2 className="text-2xl font-light text-white">The Inside Scoop</h2>
+              <h2 className="text-2xl font-light text-white">{`{ Developer Tools }`}</h2>
             </div>
             <p className="text-gray-300">
-              Tech enthusiast with a passion for problem solving and building innovative solutions.
+              Write, Understand, Query, Improve and Debug Code with AI Agents.
             </p>
           </div>
 
@@ -25,7 +25,7 @@ function Features() {
               <h2 className="text-2xl font-light text-white">Let&apos;s Build Together</h2>
             </div>
             <p className="text-gray-300">
-              Do you want to build something together? Let&apos;s create amazing projects!
+              Innovate new solutions with RAG Engines in context to your Second Memory and build them for Real World!
             </p>
           </div>
         </div>
@@ -34,24 +34,100 @@ function Features() {
         <div className="flex-1">
           <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 h-[616px]">
             <div className="h-full flex flex-col">
-              <h2 className="text-2xl font-light text-white mb-4">Upcoming DevOps Engineer</h2>
+              <h2 className="text-2xl font-light text-white mb-4">Fetching Data from Firebase</h2>
               <div className="flex-1 bg-black/30 rounded-lg p-4 font-mono text-sm text-purple-300">
                 <div className="mb-4">
-                  <span className="text-gray-500"> Importing a single module</span>
+                  <span className="text-gray-500">// Fetch data from Firebase</span>
                   <div>
-                    <span className="text-pink-500">import</span>
-                    <span className="text-purple-300"> moduleName </span>
-                    <span className="text-pink-500">from</span>
-                    <span className="text-orange-300"> &apos;modulePath&apos;</span>;
+                    <span className="text-pink-500">const</span>
+                    <span className="text-purple-300"> fetchData </span>
+                    <span className="text-white">=</span>
+                    <span className="text-pink-500"> async</span>
+                    {/* <span className="text-white"> () => {'{'}</span> */}
                   </div>
-                </div>
-                <div>
-                  <span className="text-gray-500">Importing multiple modules</span>
+                  <div className="ml-4">
+                    <span className="text-pink-500">try</span>
+                    <span className="text-white"> {'{'}</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-pink-500">const</span>
+                    <span className="text-purple-300"> db </span>
+                    <span className="text-white">=</span>
+                    <span className="text-blue-400"> getDatabase</span>
+                    <span className="text-white">(</span>
+                    <span className="text-orange-300">firebaseapp</span>
+                    <span className="text-white">);</span>
+                  </div>
+                  <div className="ml-8 mt-2">
+                    <span className="text-gray-500">// Fetch website data</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-pink-500">const</span>
+                    <span className="text-purple-300"> websiteRef </span>
+                    <span className="text-white">=</span>
+                    <span className="text-blue-400"> ref</span>
+                    <span className="text-white">(</span>
+                    <span className="text-purple-300">db</span>
+                    <span className="text-white">,</span>
+                    <span className="text-orange-300"> &apos;/websiteData&apos;</span>
+                    <span className="text-white">);</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-pink-500">const</span>
+                    <span className="text-purple-300"> websiteSnapshot </span>
+                    <span className="text-white">=</span>
+                    <span className="text-pink-500"> await</span>
+                    <span className="text-blue-400"> get</span>
+                    <span className="text-white">(</span>
+                    <span className="text-purple-300">websiteRef</span>
+                    <span className="text-white">);</span>
+                  </div>
+                  <div className="ml-8 mt-2">
+                    <span className="text-gray-500">// Update tree data</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-blue-400">setTreeData</span>
+                    <span className="text-white">((</span>
+                    <span className="text-purple-300">prevData</span>
+                    {/* <span className="text-white">) => {'{'}</span> */}
+                  </div>
+                  <div className="ml-12">
+                    <span className="text-pink-500">const</span>
+                    <span className="text-purple-300"> newData </span>
+                    <span className="text-white">= [...</span>
+                    <span className="text-purple-300">prevData</span>
+                    <span className="text-white">];</span>
+                  </div>
+                  <div className="ml-12">
+                    <span className="text-pink-500">return</span>
+                    <span className="text-purple-300"> newData</span>
+                    <span className="text-white">;</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-white">{'});'}</span>
+                  </div>
+                  <div className="ml-4">
+                    <span className="text-white">{'}'}</span>
+                  </div>
+                  <div className="ml-4">
+                    <span className="text-pink-500">catch</span>
+                    <span className="text-white"> (</span>
+                    <span className="text-purple-300">error</span>
+                    <span className="text-white">) {'{'}</span>
+                  </div>
+                  <div className="ml-8">
+                    <span className="text-blue-400">console</span>
+                    <span className="text-white">.</span>
+                    <span className="text-blue-400">error</span>
+                    <span className="text-white">(</span>
+                    <span className="text-purple-300">error</span>
+                    <span className="text-white">);</span>
+                  </div>
+                  <div className="ml-4">
+                    <span className="text-white">{'}'}</span>
+                  </div>
                   <div>
-                    <span className="text-pink-500">import</span>
-                    <span className="text-purple-300"> {'{ module1, module2 }'} </span>
-                    <span className="text-pink-500">from</span>
-                    <span className="text-orange-300"> &apos;modulePath&apos;</span>;
+                    <span className="text-white">{'};'}</span>
                   </div>
                 </div>
               </div>
@@ -59,7 +135,6 @@ function Features() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
