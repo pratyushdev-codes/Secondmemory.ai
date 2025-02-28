@@ -205,7 +205,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           {/* Recent Chats - Scrollable Area */}
-          <div className="flex-1 overflow-y-auto px-4 py-6">
+          <div className="flex-1 overflow-y-auto overflow-x-auto px-4 py-6">
             <h1 className="text-lg font-semibold text-gray-400 px-2 mb-4" style={{
               background: "linear-gradient(to bottom, #6b7280, white)",
               WebkitBackgroundClip: "text",

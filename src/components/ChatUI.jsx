@@ -59,7 +59,7 @@ const ChatUI = ({ onSendMessage }) => {
   const chatResponse = async (message) => {
     try {
       const response = await axios.post(
-        "https://dxgxkqvgx1.execute-api.us-east-1.amazonaws.com/default/ragsecondmemoryai",
+        "https://1jxc2ie9a6.execute-api.us-east-1.amazonaws.com/default/secondmemory_rag_2",
         {
           chat: message
         },
