@@ -14,12 +14,12 @@ const ChatInput = ({ onSendMessage }) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-4 backdrop-blur-md flex items-center gap-3">
-      <div className="flex items-center gap-3 rounded-full bg-gray-700/50 p-2 border border-gray-700/100 flex-grow">
+      <div className="flex items-center gap-1 rounded-full bg-gray-700/50 p-1 border border-gray-700/100 flex-grow">
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enter Prompt..."
+          placeholder="Ask Secondmemory..."
           className="flex-1 bg-transparent px-4 py-2.5 focus:outline-none text-gray-100 placeholder-gray-500 text-sm"
         />
       </div>

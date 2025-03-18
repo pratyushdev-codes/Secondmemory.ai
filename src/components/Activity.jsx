@@ -11,7 +11,7 @@ const Activity = () => {
   const renderGradient = (
     <defs>
       <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stopColor="#65CCC9" /> {/* Lighter blue */}
+      <stop offset="10%" stopColor="#65CCC9" /> {/* Lighter blue */}
         <stop offset="30%" stopColor="#60A5FA" /> {/* Lighter blue */}
         <stop offset="100%" stopColor="#3B82F6" /> {/* Darker blue */}
       </linearGradient>

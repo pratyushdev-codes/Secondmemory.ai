@@ -1,51 +1,38 @@
-import React, { useState } from 'react';
+// CodeEditor.js
+import React from 'react';
 import Editor from '@monaco-editor/react';
 import EditorToolbar from './EditorToolbar';
+import { useCode } from '../hooks/CodeContext.jsx';
 
 const CodeEditor = () => {
-  const defaultCode = `// Upload or Paste your Code here
-function example() {
-  console.log("Hello, World!");
-}
-
-// Start coding here...`;
-
-  const [code, setCode] = useState(defaultCode);
+  const { code, setCode, defaultCode } = useCode();
 
   const handleFileUpload = (content) => {
     setCode(content);
   };
 
   const handleClear = () => {
-    setCode('');
+    setCode(defaultCode);
   };
 
   return (
-    <div className="h-full w-full bg-gradient-to-b from-[#1C1E29] to-[#0F1117]  rounded-3xl flex flex-col">
+    <div className="h-full w-full bg-gradient-to-b from-[#1C1C1C] to-[#0F1117] flex flex-col rounded-xl overflow-hidden">
       <EditorToolbar onFileUpload={handleFileUpload} onClear={handleClear} />
-      <div className="flex-1">
+      <div className="flex-1 rounded-xl overflow-hidden">
         <Editor
           height="100%"
           defaultLanguage="javascript"
-          value={code}
+          value={code || defaultCode}
           onChange={(value) => setCode(value || '')}
           theme="vs-dark"
           options={{
             minimap: { enabled: false },
             fontSize: 14,
-            acceptSuggestionOnCommitCharacter: true,
-            codeLens: true,
-            cursorBlinking: "blink",
             wordWrap: 'on',
             automaticLayout: true,
             padding: { top: 20 },
             scrollBeyondLastLine: false,
-            colorDecorators: true,
             lineNumbers: 'on',
-            roundedSelection: true,
-            renderLineHighlight: 'all',
-            fontFamily: 'monospace',
-            rulers: [],
           }}
         />
       </div>

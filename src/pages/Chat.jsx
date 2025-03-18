@@ -9,13 +9,15 @@ import Sidebar from '../components/Sidebar';
 import { FileUploadCard } from '../components/FileUploadCard';
 import Data from '../components/data';
 import Activity from '../components/Activity';
-import ChatUI from '../components/ChatUI';
+import ChatUI from '../components/ChatUI'
+import { ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Dashboard = () => {
   const { user } = useClerk();
   const navigate = useNavigate();
-
+  const [isHovered, setIsHovered] = useState(false);
   const handleClick = () => {
     navigate('/talktocode');
   };
@@ -28,7 +30,7 @@ const Dashboard = () => {
         <div className="">
           <Sidebar />
         </div>
-        
+
         <div className="flex-1 h-screen bg-cover bg-center p-5 bg-[url('./images/3.jpg')]  rounded-br-md rounded-tr-xl">
           <NavigationBar />
           <div className="mb-6">
@@ -58,6 +60,21 @@ const Dashboard = () => {
                     </span>
                   </div>
                 </div>
+
+
+                <div className="flex flex-row items-center space-x-2 px-4 border border-[#666] rounded-full p-2 mt-4 relative">
+  <ShieldAlert 
+    className="w-6 h-6 text-gray-400 cursor-pointer" 
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+  />
+  {isHovered && (
+    <div className="absolute left-0 top-10 mt-2 px-4 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg z-50 w-[300px]">
+      <p>Knowledge Base will automatically be deleted after a session of 20 minutes, due to compute costs.</p>
+    </div>
+  )}
+</div>
+
               </div>
 
               <div className="relative inline-flex group mt-4 ">
@@ -77,30 +94,30 @@ const Dashboard = () => {
           </div>
 
           <div className="h-[calc(100vh-16.7rem)] rounded-tl-2xl rounded-tr-2xl overflow-hidden shadow-lg bg-[#1a1f37]/80 backdrop-blur-sm border border-gray-700">
-          <ChatUI/>
+            <ChatUI />
           </div>
         </div>
 
         <div className="w-1/4 pr-4 py-4 h-screen overflow-hidden hidden lg:block">
-            <div className="h-full rounded-2xl shadow-lg flex flex-col">
-              <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-                <div className="bg-[url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-                  <Data />
-                </div>
-                <div className=" bg-gradient-to-b to-gray-900 from-black border border-gray-800 rounded-xl p-1">
-                  <Activity />
-                </div>
-                <div className="bg-[url('./images/nexx8.jpg')] opacity-75 border border-gray-700 bg-cover rounded-xl p-2">
-                  <FileUploadCard />
-                </div>
-                {/* "bg-[url('./images/nexx.jpg')] */}
-
+          <div className="h-full rounded-2xl shadow-lg flex flex-col">
+            <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+              <div className="bg-[url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+                <Data />
               </div>
+              <div className=" bg-gradient-to-b to-gray-900 from-black border border-gray-800 rounded-xl p-1">
+                <Activity />
+              </div>
+              <div className="bg-[url('./images/nexx8.jpg')] opacity-75 border border-gray-700 bg-cover rounded-xl p-2">
+                <FileUploadCard />
+              </div>
+              {/* "bg-[url('./images/nexx.jpg')] */}
+
             </div>
           </div>
-    
         </div>
+
       </div>
+    </div>
   );
 };
 

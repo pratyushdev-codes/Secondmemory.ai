@@ -17,7 +17,10 @@ import axios from 'axios';
 const ChatHistoryItem = ({ title }) => (
   <div className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 rounded-lg cursor-pointer transition-all duration-200 group">
     <History className="w-4 h-4 text-gray-500 group-hover:text-blue-400 transition-colors" />
-    <span className="text-sm font-medium truncate group-hover:text-gray-300 transition-colors">{title}</span>
+    <span className="text-sm font-medium truncate group-hover:text-gray-300 transition-colors">
+  {title.length > 18 ? title.substring(0, 23) + "..." : title}
+</span>
+
   </div>
 );
 
@@ -162,12 +165,12 @@ const Sidebar = ({ isOpen, onClose }) => {
             }}>AI Assistants</h1>
 
             <div className="space-y-3">
-              <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-800/50 hover:bg-blue-700 text-blue-400 rounded-xl transition-all duration-200" onClick={() => window.location.reload(false)}>
+              <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-800/50 hover:bg-blue-700 text-gray-300 rounded-xl transition-all duration-200" onClick={() => window.location.reload(false)}>
                 <MessageSquare className="w-5 h-5" />
                 <span className="font-medium">New Chat</span>
               </button>
 
-              <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-800/50 hover:bg-gray-800 text-blue-400 rounded-xl transition-all duration-200" onClick={handleClick}>
+              <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-800/50 hover:bg-gray-800 text-gray-300 rounded-xl transition-all duration-200" onClick={handleClick}>
                 <Terminal className="w-5 h-5" />
                 <span className="font-medium">Code Assistant</span>
               </button>
