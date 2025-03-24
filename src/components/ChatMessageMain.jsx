@@ -71,16 +71,16 @@ const ChatMessageMain = ({ message, userImage }) => {
         <p className="text-sm">{message.text}</p>
         <p className="text-xs mt-1 opacity-60">{formattedTime}</p>
       </div>    
-      <div className="flex gap-2">
+      <div className="flex gap-2 border border-gray-700 p-1 rounded-full">
         <button 
-          className="p-1 rounded-full border border-gray-600 hover:bg-gray-700"
+          className="p-1 rounded-full "
           onClick={handleSpeak}
           disabled={isPlaying}
         >
           <AudioLines size={15} className={`${isPlaying ? 'text-gray-500' : 'text-gray-400'}`} />
         </button>
         <button 
-          className="p-1 rounded-full border border-gray-600 hover:bg-gray-700"
+          className="p-1 rounded-full "
           onClick={handlePauseResume}
           disabled={!utterance}
         >

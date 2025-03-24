@@ -2,10 +2,11 @@ import Hero from "../components/Hero";
 import { Navbar } from "../components/Navbar";
 import Prize from "../components/Prize.jsx";
 import { AppleCardsCarouselDemo } from "../components/AppleCardsCarousel";
-import { GradualSpacingDemo } from "../components/GradualSpacingDemo";
+
 import Features from "../components/Features";
 import TechUI from "../components/TechUI";
 import { SignInButton } from "@clerk/clerk-react";
+import UltimateAI from "../components/UltimateAI.jsx";
 
 
 function Home() {
@@ -15,10 +16,11 @@ function Home() {
       <Hero />
       <Features />
       <Prize />
+      <UltimateAI/>
       <AppleCardsCarouselDemo />
       <TechUI />
       <br />
-      <GradualSpacingDemo />
+
       <br />
     </div>
   );

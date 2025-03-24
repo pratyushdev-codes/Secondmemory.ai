@@ -7,14 +7,14 @@ import date from 'date-and-time';
 import NavigationBar from '../components/NavigationBar';
 import Sidebar from '../components/Sidebar';
 import { FileUploadCard } from '../components/FileUploadCard';
-import Data from '../components/data';
+import Data from '../components/Data';
 import Activity from '../components/Activity';
 import ChatUI from '../components/ChatUI'
 import { ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-const Dashboard = () => {
+import backgroundImage from '../../public/images/3.jpg';
+const Chat = () => {
   const { user } = useClerk();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -31,7 +31,7 @@ const Dashboard = () => {
           <Sidebar />
         </div>
 
-        <div className="flex-1 h-screen bg-cover bg-center p-5 bg-[url('./images/3.jpg')]  rounded-br-md rounded-tr-xl">
+        <div className="flex-1 h-screen bg-cover bg-center p-5  rounded-br-md rounded-tr-xl" style={{ backgroundImage: `url(${backgroundImage})` }}>
           <NavigationBar />
           <div className="mb-6">
             <h1 className="text-5xl pt-8 pl-4 font-normal text-transparent bg-gradient-to-r from-[#3398DB] via-[#DDE6E8] to-[#DDE6E8] bg-clip-text">
@@ -121,4 +121,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Chat;

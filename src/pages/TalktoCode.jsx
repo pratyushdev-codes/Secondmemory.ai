@@ -5,7 +5,7 @@ import { Terminal, ShieldAlert } from 'lucide-react';
 import logo from '../../public/images/supermemoryailogo.svg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import backgroundImage from '../../public/images/3.jpg';
 function TalktoCode() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -123,7 +123,7 @@ function example() {
         </div>
 
         {/* Right Section - Code & Header */}
-        <div className="flex-1 bg-[url('./images/3.jpg')] bg-cover bg-center flex flex-col space-y-6 rounded-3xl p-3">
+        <div className="flex-1 bg-cover bg-center flex flex-col space-y-6 rounded-3xl p-3" style={{ backgroundImage: `url(${backgroundImage})` }}>
           <div className="space-y-4">
             <h1 className="text-4xl lg:text-6xl font-light text-transparent bg-gradient-to-r from-[#3398DB] via-[#DDE6E8] to-[#DDE6E8] bg-clip-text">
               Chat with Your Codebase.

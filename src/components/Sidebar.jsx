@@ -81,7 +81,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const sendWebData = async (e) => {
     e.preventDefault();
-
+  
     const options = {
       method: "POST",
       headers: {
@@ -89,20 +89,27 @@ const Sidebar = ({ isOpen, onClose }) => {
       },
       body: JSON.stringify({ url })
     };
-
+  
     try {
       const res = await fetch('https://secondmemoryai-default-rtdb.firebaseio.com/websiteData.json', options);
-
+  
       if (res.ok) {
         console.log("Website Data dispatched to DB");
         toast.success("Website Uploaded to your Knowledge Base");
+        
+        // Trigger vector store update
+        await axios.post(
+          'https://secondmemory-ai-multisourcerag.onrender.com/refresh_web_data',
+          {},
+          { timeout: 30000 } // 30-second timeout
+        );
       } else {
-        console.error("Error occurred while saving website details to DB", res.statusText);
-        toast.error("Error occurred while saving website.");
+        console.error("Error saving website details", res.statusText);
+        toast.error("Error saving website");
       }
     } catch (error) {
-      console.error("Network error while saving website details to DB", error);
-      toast.error("Network error while saving website.");
+      console.error("Network error:", error);
+      toast.error("Network error while saving website");
     }
   };
 

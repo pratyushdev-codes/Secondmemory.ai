@@ -7,7 +7,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import AWS from 'aws-sdk';
 export function FileUploadCard() {
   const [files, setFiles] = useState([]);
-  const [fileName , saveFileName] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   
 
 
@@ -44,19 +44,67 @@ export function FileUploadCard() {
 
 
 
-  const handleFileSelect = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.type === "application/pdf") {
-        setFiles([...files, file]);
-        saveFileName(file.name); // Update the state with the file name
-        alert(`Uploaded file: ${file.name}`);
-        sendFileData(file.name); // Pass the file name to the `sendFileData` function
+  const handleFileSelect = async (e) => {
+    const selectedFiles = e.target.files;
+    if (!selectedFiles || selectedFiles.length === 0) return;
+
+    // Filter only PDF files
+    const pdfFiles = Array.from(selectedFiles).filter(file => 
+      file.type === "application/pdf"
+    );
+
+    if (pdfFiles.length === 0) {
+      toast.error("Please upload PDF files only");
+      return;
+    }
+
+    setFiles(pdfFiles);
+    await uploadFilesToBackend(pdfFiles);
+  };
+
+  const uploadFilesToBackend = async (files) => {
+    setIsUploading(true);
+    const formData = new FormData();
+    
+    // Append all files to FormData
+    files.forEach((file, index) => {
+      formData.append(`files`, file, file.name);
+    });
+
+    try {
+      const response = await fetch(
+        'https://secondmemory-ai-multisourcerag.onrender.com/upload-pdfs/',
+        {
+          method: 'POST',
+          body: formData,
+          // Headers are automatically set by browser for FormData
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success(`Processed ${result.processed_chunks} chunks from ${files.length} PDF(s)`);
+        // Update UI with processed files
+        setFiles(prev => prev.map(file => ({
+          ...file,
+          status: 'processed',
+          chunks: result.processed_chunks
+        })));
       } else {
-        alert("Please upload a valid PDF file.");
+        throw new Error(result.detail || 'Upload failed');
       }
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast.error(`Upload failed: ${error.message}`);
+      setFiles(prev => prev.map(file => ({
+        ...file,
+        status: 'error'
+      })));
+    } finally {
+      setIsUploading(false);
     }
   };
+
 
 
 //function to save pdf files to aws s3
@@ -115,11 +163,11 @@ export function FileUploadCard() {
         </button>
       </div>
 
-      <FileList files={files} />
+      <FileList files={files} isUploading={isUploading} />
 
       <div className="flex items-center justify-between">
         <FileTypeIcons />
-        <AddFileButton onFileSelect={handleFileSelect} />
+        <AddFileButton onFileSelect={handleFileSelect} isUploading={isUploading} />
       </div>
 
       {/* Add a hidden file input to trigger the upload */}
