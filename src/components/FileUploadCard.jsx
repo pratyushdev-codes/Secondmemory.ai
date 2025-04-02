@@ -67,23 +67,28 @@ export function FileUploadCard() {
     const formData = new FormData();
     
     // Append all files to FormData
-    files.forEach((file, index) => {
-      formData.append(`files`, file, file.name);
+    files.forEach((file) => {
+      formData.append('files', file, file.name);
     });
-
+  
     try {
       const response = await fetch(
         'https://secondmemory-ai-multisourcerag.onrender.com/upload-pdfs/',
         {
           method: 'POST',
           body: formData,
-          // Headers are automatically set by browser for FormData
         }
       );
-
+  
       const result = await response.json();
       if (response.ok) {
         toast.success(`Processed ${result.processed_chunks} chunks from ${files.length} PDF(s)`);
+        
+        // Call sendFileData for each file to save its name to Firebase
+        for (const file of files) {
+          await sendFileData(file.name);
+        }
+        
         // Update UI with processed files
         setFiles(prev => prev.map(file => ({
           ...file,
@@ -104,7 +109,7 @@ export function FileUploadCard() {
       setIsUploading(false);
     }
   };
-
+  
 
 
 //function to save pdf files to aws s3
@@ -172,12 +177,14 @@ export function FileUploadCard() {
 
       {/* Add a hidden file input to trigger the upload */}
       <input
-        type="file"
-        id="file-upload"
-        accept=".pdf"
-        onChange={handleFileSelect}
-        style={{ display: 'none' }}
-      />
+  type="file"
+  id="file-upload"
+  accept=".pdf"
+  multiple
+  onChange={handleFileSelect}
+  style={{ display: 'none' }}
+/>
+
     </div>
   );
 }

@@ -36,7 +36,7 @@ const UltimateAI = () => {
 
             {/* Center the main content */}
             <div className="w-full h-full flex flex-col items-center justify-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium leading-tight tracking-tight mb-4 text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-center">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium leading-tight tracking-tight mb-4 text-transparent text-white bg-clip-text text-center">
                 The Ultimate Multisource RAG and AI Agents that you need.
               </h1>
 

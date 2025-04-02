@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useClerk } from '@clerk/clerk-react';
 import ChatMessageMain from './ChatMessageMain';
 import { useChatHandler } from '../hooks/useChatHandler';
-import { File, Globe, CirclePlus } from 'lucide-react';
+import { File, Globe, PlusCircle as CirclePlus } from 'lucide-react';
 import axios from 'axios';
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -32,6 +32,21 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
+const LoadingMessage = () => (
+  <div className="flex items-end gap-2">
+    <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center"> 
+      <img className="w-8 h-8 rounded-full opacity-60" src="/images/AIAvatar.png" alt="AI Avatar"/>
+    </div>
+    <div className="bg-gradient-to-r from-slate-900 to-gray-800 rounded-2xl px-4 py-2">
+      <div className="flex items-center space-x-2">
+        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+      </div>
+    </div>
+  </div>
+);
+
 const ChatUI = ({ onSendMessage }) => {
   const { handleNewChat } = useChatHandler();
   const { user } = useClerk();
@@ -43,12 +58,6 @@ const ChatUI = ({ onSendMessage }) => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! How can I help you today?",
-      sender: 'ai',
-      timestamp: new Date()
-    },
-    {
-      id: 2,
       text: "I'll analyze your Knowledge Base and help you understand it better. What specific aspects would you like to explore? For better experience select the Knowledge source.",
       sender: 'ai',
       timestamp: new Date()
@@ -61,7 +70,7 @@ const ChatUI = ({ onSendMessage }) => {
       const response = await axios.post(
         "https://secondmemory-ai-multisourcerag.onrender.com/ask/",
         {
-          question: message  // Changed from 'chat' to 'question'
+          question: message
         },
         {
           headers: {
@@ -74,10 +83,8 @@ const ChatUI = ({ onSendMessage }) => {
       console.error('Error getting response:', error);
       return 'Sorry, I encountered an error processing your request.';
     }
-
   };
 
-  // Modified to return the summary for the first user message
   const summarizeUserChat = async (messageText) => {
     try {
       const response = await axios.post(
@@ -101,7 +108,6 @@ const ChatUI = ({ onSendMessage }) => {
     }
   };
 
-  // Modified to accept a summary parameter
   const sendUserchatHistory = async (summary) => {
     const options = {
       method: "POST",
@@ -125,21 +131,33 @@ const ChatUI = ({ onSendMessage }) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
-    if (newMessage.trim()) {
-      // Process first message: summarize and save to Firebase
+    
+    if (!newMessage.trim() || isLoading) return;
+    
+    let messageToSend = newMessage;
+    
+    if (activeButton === 'file') {
+      messageToSend = "Answer to the user query from PDFs: " + newMessage;
+    } else if (activeButton === 'globe') {
+      messageToSend = "Answer to the user query from Website source: " + newMessage;
+    }
+
+    setIsLoading(true);
+
+    try {
       if (!firstMessageSent) {
-        const summary = await summarizeUserChat(newMessage);
+        const summary = await summarizeUserChat(messageToSend);
         await sendUserchatHistory(summary);
         setFirstMessageSent(true);
       }
 
-      // Add the user message
       const userMessage = {
         id: messages.length + 1,
         text: newMessage,
         sender: 'user',
         timestamp: new Date()
       };
+      
       setMessages(prevMessages => [...prevMessages, userMessage]);
       setNewMessage('');
       handleNewChat();
@@ -148,29 +166,28 @@ const ChatUI = ({ onSendMessage }) => {
         onSendMessage(newMessage);
       }
 
-      // Show loading state while fetching AI response
-      setIsLoading(true);
-      try {
-        const aiResponseText = await chatResponse(newMessage);
-        const aiMessage = {
-          id: messages.length + 2,
-          text: aiResponseText,
-          sender: 'ai',
-          timestamp: new Date()
-        };
-        setMessages(prevMessages => [...prevMessages, aiMessage]);
-      } catch (error) {
-        console.error('Error in handleSend:', error);
-        const errorMessage = {
-          id: messages.length + 2,
-          text: "I apologize, but I encountered an error while processing your request. Please try again.",
-          sender: 'ai',
-          timestamp: new Date()
-        };
-        setMessages(prevMessages => [...prevMessages, errorMessage]);
-      } finally {
-        setIsLoading(false);
-      }
+      const aiResponseText = await chatResponse(messageToSend);
+      const aiMessage = {
+        id: messages.length + 2,
+        text: aiResponseText,
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      
+      setMessages(prevMessages => [...prevMessages, aiMessage]);
+      setActiveButton(null);
+      
+    } catch (error) {
+      console.error('Error in handleSend:', error);
+      const errorMessage = {
+        id: messages.length + 2,
+        text: "I apologize, but I encountered an error while processing your request. Please try again.",
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prevMessages => [...prevMessages, errorMessage]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -188,48 +205,50 @@ const ChatUI = ({ onSendMessage }) => {
             userImage={user?.imageUrl}
           />
         ))}
-        {isLoading && (
-          <div className="text-gray-400 italic">Secondmemory is thinking...</div>
-        )}
+        {isLoading && <LoadingMessage />}
       </div>
 
       <div className="p-4">
-
         <form onSubmit={handleSend} className="flex items-center gap-2">
-        <button
-  type="button" // Prevents form submission
-  className="p-2 bg-transparent border border-gray-500 rounded-full text-gray-300 transition-colors"
-  onClick={() => window.location.reload()}
->
-  <CirclePlus className="h-5" />
-</button>
+          <button
+            type="button"
+            className="p-2 bg-transparent border border-gray-500 rounded-full text-gray-300 transition-colors"
+            onClick={() => window.location.reload()}
+          >
+            <CirclePlus className="h-5" />
+          </button>
 
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Ask Secondmemory..."
-            className="flex-1 bg-transparent text-gray-300 rounded-full px-4 py-2  border border-gray-500 "
+            className="flex-1 bg-transparent text-gray-300 rounded-full px-4 py-2 border border-gray-500"
             disabled={isLoading}
           />
 
           <button
+            type="button"
             className="py-2 px-3 bg-transparent border border-gray-500 rounded-full text-gray-300 transition-colors"
-
           >
             Source
           </button>
+          
           <button
-            className={`py-2 px-3 bg-transparent border rounded-full text-gray-300 transition-colors ${activeButton === 'file' ? 'border-blue-400' : 'border-gray-500'
-              }`}
+            type="button"
+            className={`py-2 px-3 bg-transparent border rounded-full text-gray-300 transition-colors ${
+              activeButton === 'file' ? 'border-blue-400 bg-blue-900/30' : 'border-gray-500'
+            }`}
             onClick={() => handleButtonClick('file')}
           >
             <File className="h-5" />
           </button>
 
           <button
-            className={`py-2 px-3 bg-transparent border rounded-full text-gray-300 transition-colors ${activeButton === 'globe' ? 'border-blue-400' : 'border-gray-500'
-              }`}
+            type="button"
+            className={`py-2 px-3 bg-transparent border rounded-full text-gray-300 transition-colors ${
+              activeButton === 'globe' ? 'border-blue-400 bg-blue-900/30' : 'border-gray-500'
+            }`}
             onClick={() => handleButtonClick('globe')}
           >
             <Globe className='h-5' />
@@ -238,10 +257,11 @@ const ChatUI = ({ onSendMessage }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="p-2 text-blue-500 hover:text-blue-400 transition-colors disabled:opacity-50">
+            className="p-2 text-blue-500 hover:text-blue-400 transition-colors disabled:opacity-50"
+          >
             <div className="bg-blue-600 rounded-full p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="size-5">
-                <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clipRule="evenodd"></path>
+                <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clipRule="evenodd" />
               </svg>
             </div>
           </button>

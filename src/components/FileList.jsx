@@ -47,9 +47,9 @@ export function FileList({ files, isUploading }) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 py-2">
       {files.map((file, index) => (
-        <div key={index} className="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+        <div key={index} className="flex items-center justify-between p-3 bg-gray-900/40 hover:bg-gray-800 text-gray-300 rounded-full border border-gray-600">
           <div className="flex items-center gap-3 flex-1">
             <File className="w-5 h-5 text-gray-400" />
             <div className="flex flex-col flex-1">
@@ -76,9 +76,7 @@ export function FileList({ files, isUploading }) {
               </div>
             </div>
           </div>
-          <button className="p-1 hover:bg-gray-700 rounded-full">
-            <MoreVertical className="w-4 h-4 text-gray-400" />
-          </button>
+
         </div>
       ))}
     </div>

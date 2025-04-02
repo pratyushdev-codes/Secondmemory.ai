@@ -10,6 +10,7 @@ import UltimateAI from "../components/UltimateAI.jsx";
 
 
 function Home() {
+  console.log('Home component rendering');
   return (
     <div className="bg-black w-full">
       <Navbar />

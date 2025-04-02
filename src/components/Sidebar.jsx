@@ -7,26 +7,37 @@ import {
   Plus,
   History,
   Chrome,
-  X
+  X,
+  Loader2
 } from 'lucide-react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useClerk } from '@clerk/clerk-react';
 import axios from 'axios';
 
+// Simple URL validation function
+const isValidUrl = (urlString) => {
+  try {
+    return Boolean(new URL(urlString));
+  } catch(e) {
+    return false;
+  }
+};
+
 const ChatHistoryItem = ({ title }) => (
   <div className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 rounded-lg cursor-pointer transition-all duration-200 group">
     <History className="w-4 h-4 text-gray-500 group-hover:text-blue-400 transition-colors" />
     <span className="text-sm font-medium truncate group-hover:text-gray-300 transition-colors">
-  {title.length > 18 ? title.substring(0, 23) + "..." : title}
-</span>
-
+      {title.length > 18 ? title.substring(0, 23) + "..." : title}
+    </span>
   </div>
 );
 
 const Sidebar = ({ isOpen, onClose }) => {
   const [url, setUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation();
   const { signOut } = useClerk();
@@ -73,43 +84,87 @@ const Sidebar = ({ isOpen, onClose }) => {
     navigate('/talktocode');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Submitted URL:', url);
-    setUrl('');
-  };
-
   const sendWebData = async (e) => {
     e.preventDefault();
-  
-    const options = {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ url })
-    };
-  
+
+
+    if (!url) {
+      toast.error("Please enter a URL");
+      return;
+    }
+
+    if (!isValidUrl(url)) {
+      toast.error("Please enter a valid URL");
+      return;
+    }
+
+    // Start loading state
+    setIsLoading(true);
+    const loadingToastId = toast.loading("Processing website...", {
+      duration: 10000, // 10 seconds timeout
+      style: {
+        background: '#333',
+        color: '#fff',
+      }
+    });
+
     try {
-      const res = await fetch('https://secondmemoryai-default-rtdb.firebaseio.com/websiteData.json', options);
-  
+      // First, show chunking toast
+      toast.loading("Creating semantic chunks...", {
+        id: 'chunk-toast',
+        duration: 10000,
+        style: {
+          background: '#333',
+          color: '#fff',
+        }
+      });
+
+      const options = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          urls: [url],
+          chunk_size: 512,  // Optional: customize chunk size
+          overlap: 50       // Optional: customize overlap
+        })
+      };
+
+      const res = await fetch(
+        'https://secondmemory-ai-multisourcerag.onrender.com/process-websites/', 
+        options
+      );
+
+      const data = await res.json();
+
+      // Clear the chunking toast
+      toast.dismiss('chunk-toast');
+
       if (res.ok) {
-        console.log("Website Data dispatched to DB");
-        toast.success("Website Uploaded to your Knowledge Base");
-        
-        // Trigger vector store update
-        await axios.post(
-          'https://secondmemory-ai-multisourcerag.onrender.com/refresh_web_data',
-          {},
-          { timeout: 30000 } // 30-second timeout
-        );
+        // Successful processing
+        toast.success(`Added ${data.processed_urls.length} website(s) to Knowledge Base`, {
+          id: loadingToastId,
+          duration: 3000,
+          style: {
+            background: '#4BB543',
+            color: '#fff',
+          }
+        });
       } else {
-        console.error("Error saving website details", res.statusText);
-        toast.error("Error saving website");
+        // Handle error case
+        toast.error("Failed to process website", {
+          id: loadingToastId
+        });
       }
     } catch (error) {
-      console.error("Network error:", error);
-      toast.error("Network error while saving website");
+      console.error("Error processing website:", error);
+      toast.error("An error occurred", {
+        id: loadingToastId
+      });
+    } finally {
+      setIsLoading(false);
+      setUrl('');
     }
   };
 
@@ -184,7 +239,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             </div>
 
             {/* URL Input Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={sendWebData} className="space-y-4">
               <h1 className="text-lg font-semibold text-gray-400 px-2" style={{
                 background: "linear-gradient(to bottom, #6b7280, white)",
                 WebkitBackgroundClip: "text",
@@ -200,15 +255,32 @@ const Sidebar = ({ isOpen, onClose }) => {
                     placeholder="Enter website URL"
                     className="w-full bg-gray-800/30 border border-gray-700 rounded-xl text-gray-300 pl-11 pr-4 py-2.5 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
                     required
+                    disabled={isLoading}
                   />
                 </div>
                 <button
-                  type="button"
-                  onClick={sendWebData}
-                  className="w-full flex items-center justify-center gap-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl text-gray-300 py-2.5 transition-all duration-200"
+                  type="submit"
+                  className={`
+                    w-full flex items-center justify-center gap-2 
+                    rounded-xl text-gray-300 py-2.5 transition-all duration-200
+                    ${isLoading 
+                      ? 'bg-gray-700 cursor-not-allowed' 
+                      : 'bg-gray-800/50 hover:bg-gray-800'
+                    }
+                  `}
+                  disabled={isLoading}
                 >
-                  <Plus className="w-4 h-4" />
-                  <span className="font-medium">Add to Memory</span>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span className="font-medium">Processing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-4 h-4" />
+                      <span className="font-medium">Add to Memory</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>
