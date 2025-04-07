@@ -208,9 +208,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Header Section */}
           <div className="p-6 space-y-6">
             <div className='flex flex-row gap-2'>
-              <button className="flex-row text-ascent-1 px-3 bg-gray-900/80 border border-gray-700 rounded-full backdrop-blur-sm text-gray-400">
-                <Chrome className="w-5 h-5" />
-              </button>
+
 
               <button className="w-full flex items-center justify-center gap-2 text-ascent-1 p-2 px-3 bg-gray-900/80 border border-gray-700 rounded-full backdrop-blur-sm text-[#409DDB]">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#409DDB">

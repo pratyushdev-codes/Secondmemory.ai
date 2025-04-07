@@ -73,7 +73,7 @@ import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import Home from './pages/Home.jsx';
 import Chat from './pages/Chat.jsx';
 import { Toaster } from 'react-hot-toast';
-import TalktoCode from './pages/talktocode.jsx';
+import TalktoCode from './pages/TalktoCode.jsx';
 import { CodeProvider } from './hooks/CodeContext.jsx';
 
 const router = createBrowserRouter(

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useClerk } from '@clerk/clerk-react';
 import ChatMessageMain from './ChatMessageMain';
 import { useChatHandler } from '../hooks/useChatHandler';
 import { File, Globe, PlusCircle as CirclePlus } from 'lucide-react';
 import axios from 'axios';
+import WebYTSearch from '../pages/WebYTSearch';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -55,6 +56,8 @@ const ChatUI = ({ onSendMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [history, setHistory] = useState('');
   const [firstMessageSent, setFirstMessageSent] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [autoSearchEnabled, setAutoSearchEnabled] = useState(true);
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -108,6 +111,28 @@ const ChatUI = ({ onSendMessage }) => {
     }
   };
 
+  const summarizeforgoogleSearch = async (messageText) => {
+    try {
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyClrQpl5bYxO3FpG5AfW6peJVna2D75U3Y`,
+        {
+          contents: [{
+            parts: [{
+              text: "This is a response from my server, just and shorten and generalize this response, so that the user can search it on Google for the perfect reference:" + messageText
+            }]
+          }]
+        }
+      );
+      const summarygoogleChat = response.data.candidates[0].content.parts[0].text;
+      console.log("Search query generated:", summarygoogleChat);
+      setSearchQuery(summarygoogleChat);
+      return summarygoogleChat;
+    } catch (error) {
+      console.error("Error fetching search summary from API:", error.message);
+      return messageText; // Fall back to original message if summarization fails
+    }
+  };
+  
   const sendUserchatHistory = async (summary) => {
     const options = {
       method: "POST",
@@ -137,9 +162,9 @@ const ChatUI = ({ onSendMessage }) => {
     let messageToSend = newMessage;
     
     if (activeButton === 'file') {
-      messageToSend = "Answer to the user query from PDFs: " + newMessage;
+      messageToSend = "Answer to the user query from the uploaded PDFs: " + newMessage;
     } else if (activeButton === 'globe') {
-      messageToSend = "Answer to the user query from Website source: " + newMessage;
+      messageToSend = "Answer to the user query from uploaded Website source: " + newMessage;
     }
 
     setIsLoading(true);
@@ -151,6 +176,9 @@ const ChatUI = ({ onSendMessage }) => {
         setFirstMessageSent(true);
       }
 
+      // Generate search query summary for every message
+      await summarizeforgoogleSearch(newMessage);
+      
       const userMessage = {
         id: messages.length + 1,
         text: newMessage,
@@ -196,7 +224,10 @@ const ChatUI = ({ onSendMessage }) => {
   };
 
   return (
+    
     <div className="flex flex-col h-full">
+            <WebYTSearch initialQuery={searchQuery} autoSearch={autoSearchEnabled} />
+
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <ChatMessageMain
@@ -229,7 +260,11 @@ const ChatUI = ({ onSendMessage }) => {
 
           <button
             type="button"
-            className="py-2 px-3 bg-transparent border border-gray-500 rounded-full text-gray-300 transition-colors"
+            className={`py-2 px-3 bg-transparent border rounded-full text-gray-300 transition-colors ${
+              autoSearchEnabled ? 'border-blue-400 bg-blue-900/30' : 'border-gray-500'
+            }`}
+            onClick={() => setAutoSearchEnabled(!autoSearchEnabled)}
+            title={autoSearchEnabled ? "Auto-search enabled" : "Auto-search disabled"}
           >
             Source
           </button>

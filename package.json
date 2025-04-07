@@ -1,6 +1,5 @@
 {
   "name": "Secondmemory.ai",
-
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -41,6 +40,7 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.1.0",
     "recharts": "^2.15.0",
+    "sonner": "^2.0.3",
     "tailwind-merge": "^2.5.5",
     "typewriter-effect": "^2.21.0"
   },

@@ -87,7 +87,7 @@ const CodeChat = () => {
           .join('\n');
   
         // Update code context with the file listing
-        updateCode(`// Repository Contents:\n${fileList}`);
+        updateCode(`// Connected Repository Contents:\n${fileList}`);
         return true;
       }
       return false;
@@ -102,7 +102,7 @@ const CodeChat = () => {
         "https://secondmemory-ai-codeqa-chromadb.onrender.com/query", 
         {
           github_url: repoUrl, 
-          query: message
+          query: "Answer to the user query from the uploaded code"+message
         }
       );
       
