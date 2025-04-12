@@ -91,11 +91,11 @@ const ChatUI = ({ onSendMessage }) => {
   const summarizeUserChat = async (messageText) => {
     try {
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyClrQpl5bYxO3FpG5AfW6peJVna2D75U3Y`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyClrQpl5bYxO3FpG5AfW6peJVna2D75U3Y`,
         {
           contents: [{
             parts: [{
-              text: "This is the User prompt asked in my Chatbot, rephrase and shorten this prompt, so that can save it to my User Chat History Database:" + messageText
+              text: "This is the User prompt asked in my Chatbot, rephrase and shorten this prompt to 2-3 words (just make one response only, don't generate 2-3 options) , so that can save it to my User Chat History Database:" + messageText
             }]
           }]
         }
@@ -154,70 +154,141 @@ const ChatUI = ({ onSendMessage }) => {
     }
   };
 
-  const handleSend = async (e) => {
-    e.preventDefault();
+  // const handleSend = async (e) => {
+  //   e.preventDefault();
     
-    if (!newMessage.trim() || isLoading) return;
+  //   if (!newMessage.trim() || isLoading) return;
     
-    let messageToSend = newMessage;
+  //   let messageToSend = newMessage;
     
-    if (activeButton === 'file') {
-      messageToSend = "Answer to the user query from the uploaded PDFs: " + newMessage;
-    } else if (activeButton === 'globe') {
-      messageToSend = "Answer to the user query from uploaded Website source: " + newMessage;
+  //   if (activeButton === 'file') {
+  //     messageToSend = "Answer to the user query from the uploaded PDFs: " + newMessage;
+  //   } else if (activeButton === 'globe') {
+  //     messageToSend = "Answer to the user query from uploaded Website source: " + newMessage;
+  //   }
+
+  //   setIsLoading(true);
+
+  // try {
+  //   if (!firstMessageSent) {
+  //     const summary = await summarizeUserChat(messageToSend);
+  //     await sendUserchatHistory(summary);
+  //     setFirstMessageSent(true);
+  //   }
+
+  //     // Generate search query summary for every message
+  //     await summarizeforgoogleSearch(newMessage);
+      
+  //     const userMessage = {
+  //       id: messages.length + 1,
+  //       text: newMessage,
+  //       sender: 'user',
+  //       timestamp: new Date()
+  //     };
+      
+  //     setMessages(prevMessages => [...prevMessages, userMessage]);
+  //     setNewMessage('');
+  //     handleNewChat();
+
+  //     if (onSendMessage) {
+  //       onSendMessage(newMessage);
+  //     }
+
+  //     const aiResponseText = await chatResponse(messageToSend);
+  //     const aiMessage = {
+  //       id: messages.length + 2,
+  //       text: aiResponseText,
+  //       sender: 'ai',
+  //       timestamp: new Date()
+  //     };
+      
+  //     setMessages(prevMessages => [...prevMessages, aiMessage]);
+  //     setActiveButton(null);
+      
+  //   } catch (error) {
+  //     console.error('Error in handleSend:', error);
+  //     const errorMessage = {
+  //       id: messages.length + 2,
+  //       text: "I apologize, but I encountered an error while processing your request. Please try again.",
+  //       sender: 'ai',
+  //       timestamp: new Date()
+  //     };
+  //     setMessages(prevMessages => [...prevMessages, errorMessage]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+
+
+const handleSend = async (e) => {
+  e.preventDefault();
+  
+  if (!newMessage.trim() || isLoading) return;
+  
+  let messageToSend = newMessage;
+  
+  if (activeButton === 'file') {
+    messageToSend = "Answer to the user query from the uploaded PDFs: " + newMessage;
+  } else if (activeButton === 'globe') {
+    messageToSend = "Answer to the user query from uploaded Website source: " + newMessage;
+  }
+
+  setIsLoading(true);
+
+  try {
+    if (!firstMessageSent) {
+      const summary = await summarizeUserChat(messageToSend);
+      await sendUserchatHistory(summary);
+      setFirstMessageSent(true);
     }
 
-    setIsLoading(true);
+    const userMessage = {
+      id: messages.length + 1,
+      text: newMessage,
+      sender: 'user',
+      timestamp: new Date()
+    };
+    
+    setMessages(prevMessages => [...prevMessages, userMessage]);
+    setNewMessage('');
+    handleNewChat();
 
-    try {
-      if (!firstMessageSent) {
-        const summary = await summarizeUserChat(messageToSend);
-        await sendUserchatHistory(summary);
-        setFirstMessageSent(true);
-      }
-
-      // Generate search query summary for every message
-      await summarizeforgoogleSearch(newMessage);
-      
-      const userMessage = {
-        id: messages.length + 1,
-        text: newMessage,
-        sender: 'user',
-        timestamp: new Date()
-      };
-      
-      setMessages(prevMessages => [...prevMessages, userMessage]);
-      setNewMessage('');
-      handleNewChat();
-
-      if (onSendMessage) {
-        onSendMessage(newMessage);
-      }
-
-      const aiResponseText = await chatResponse(messageToSend);
-      const aiMessage = {
-        id: messages.length + 2,
-        text: aiResponseText,
-        sender: 'ai',
-        timestamp: new Date()
-      };
-      
-      setMessages(prevMessages => [...prevMessages, aiMessage]);
-      setActiveButton(null);
-      
-    } catch (error) {
-      console.error('Error in handleSend:', error);
-      const errorMessage = {
-        id: messages.length + 2,
-        text: "I apologize, but I encountered an error while processing your request. Please try again.",
-        sender: 'ai',
-        timestamp: new Date()
-      };
-      setMessages(prevMessages => [...prevMessages, errorMessage]);
-    } finally {
-      setIsLoading(false);
+    if (onSendMessage) {
+      onSendMessage(newMessage);
     }
-  };
+
+    // Get AI response first
+    const aiResponseText = await chatResponse(messageToSend);
+    
+    // Then generate search query based on the response
+    const searchQueryText = await summarizeforgoogleSearch(aiResponseText);
+    setSearchQuery(searchQueryText); // This will trigger the search in WebYTSearch component
+    
+    const aiMessage = {
+      id: messages.length + 2,
+      text: aiResponseText,
+      sender: 'ai',
+      timestamp: new Date()
+    };
+    
+    setMessages(prevMessages => [...prevMessages, aiMessage]);
+    setActiveButton(null);
+    
+  } catch (error) {
+    console.error('Error in handleSend:', error);
+    const errorMessage = {
+      id: messages.length + 2,
+      text: "I apologize, but I encountered an error while processing your request. Please try again.",
+      sender: 'ai',
+      timestamp: new Date()
+    };
+    setMessages(prevMessages => [...prevMessages, errorMessage]);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(activeButton === buttonName ? null : buttonName);
@@ -226,9 +297,10 @@ const ChatUI = ({ onSendMessage }) => {
   return (
     
     <div className="flex flex-col h-full">
-            <WebYTSearch initialQuery={searchQuery} autoSearch={autoSearchEnabled} />
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+
+      <div className="flex-1 overflow-y-auto p-3 space-y-4 scrollbar-invisible">
+      <WebYTSearch initialQuery={searchQuery} autoSearch={autoSearchEnabled} />
         {messages.map((message) => (
           <ChatMessageMain
             key={message.id}

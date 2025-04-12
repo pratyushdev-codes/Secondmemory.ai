@@ -177,7 +177,7 @@ const ChatMessage = ({ message, isUser }) => {
               return <code className="text-blue-500">{children}</code>;
             }
             return (
-              <pre className="bg-gray-800/50 p-4 rounded-lg overflow-x-auto">
+              <pre className="bg-gray-800/50 p-4 rounded-lg overflow-x-auto ">
                 <code>{children}</code>
               </pre>
             );

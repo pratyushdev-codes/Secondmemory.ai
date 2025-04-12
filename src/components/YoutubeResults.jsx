@@ -1,14 +1,28 @@
+import { Youtube, Info } from "lucide-react"
 const YouTubeResults = ({ results = [] }) => {
   if (!results || results.length === 0) {
     return null
   }
 
   return (
-    <div className="w-full">
-      <h2 className="text-xs md:text-sm lg:text-lg font-medium text-gray-200 mb-2">YouTube Results</h2>
+<div className="w-full">
+  <div className="flex flex-row items-start space-x-4 px-2 py-2">
+    <div className="flex items-center space-x-2 border border-[#666] rounded-full px-4 py-2 w-[29%]">
+      <Youtube className="text-gray-400" />
+      <span className="text-gray-400 text">Youtube Results</span>
+    </div>
+
+    <div className="flex items-center space-x-2 text-base text-gray-400 mt-2">
+      <Info className="w-3 h-3" />
+      <span>Auto-searching based on your query</span>
+    </div>
+  </div>
+
+
+
 
       {/* Container with fixed width and proper overflow handling */}
-      <div className="w-full">
+      <div className="w-full py-3">
         {/* Horizontal scrollable container that doesn't expand parent */}
         <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent pb-2 max-w-full">
           {/* Fixed width content container with flex layout */}
@@ -25,7 +39,7 @@ const YouTubeResults = ({ results = [] }) => {
                   <img
                     src={video.thumbnailUrl || "/placeholder.svg"}
                     alt={video.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-70 rounded-lg"
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 rounded-lg"
                   />
                 </div>
 

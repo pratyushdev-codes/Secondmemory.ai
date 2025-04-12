@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
-import { AudioLines, Pause, Play, Github, FolderUp, X, Workflow, BrainCircuit } from 'lucide-react';
+import { AudioLines, Pause, Play, Github, FolderUp, X, Workflow, BrainCircuit, FolderInput } from 'lucide-react';
 import { useCode } from '../hooks/CodeContext';
 
 const LoadingMessage = () => (
@@ -47,7 +47,7 @@ const CodeChat = () => {
     
     const payload = {
       code: codeContent,
-      query: message
+      query: "Try to answer the user query in context with the attached code and try to generate code for each explanation or response"+message
     };
     
     try {
@@ -144,7 +144,7 @@ const CodeChat = () => {
   const handleSpeak = (text) => {
     window.speechSynthesis.cancel();
     const newUtterance = new SpeechSynthesisUtterance(text);
-    newUtterance.rate = 1.3;
+    newUtterance.rate = 1;
 
     const voices = window.speechSynthesis.getVoices();
     const femaleVoice = voices.find(voice =>
@@ -218,12 +218,12 @@ const CodeChat = () => {
     <div className="flex flex-col h-full border-gray-800/50">
       {/* Header Controls */}
       <div className="flex flex-row justify-center items-center gap-2 p-3 border-b border-gray-700 w-full">
-        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors">
-          <BrainCircuit size={18} />
+        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors ">
+          <FolderInput size={18} />
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className={`flex items-center gap-2 px-5 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors ${githubConnected
+          className={`flex items-center gap-2 px-5 py-2 bg-gray-900/80 border border-blue-900 rounded-full  backdrop-blur-sm hover:bg-gray-800/80 transition-colors ${githubConnected
             ? 'bg-[0F1A23] cursor-not-allowed'
             : 'bg-gray-800 hover:bg-gray-700'
             }`}
@@ -292,7 +292,7 @@ const CodeChat = () => {
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-invisible">
         {messages.map((message, index) => (
           <ChatMessage
             key={index}

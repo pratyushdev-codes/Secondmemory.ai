@@ -3,6 +3,6 @@ import React from 'react';
 
 export const Skeleton = ({ className }) => {
   return (
-    <div className={`animate-pulse rounded-md bg-gray-700 ${className || ''}`} />
+    <div className={`animate-pulse rounded-md bg-transparent border border-gray-600 ${className || ''}`} />
   );
 };

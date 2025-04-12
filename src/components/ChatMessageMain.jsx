@@ -57,7 +57,7 @@ const ChatMessageMain = ({ message, userImage }) => {
     const newUtterance = new SpeechSynthesisUtterance(
       typeof text === 'string' ? text : JSON.stringify(text)
     );
-    newUtterance.rate = 1.3;
+    newUtterance.rate = 1;
     
     newUtterance.onstart = () => setIsPlaying(true);
     newUtterance.onend = () => setIsPlaying(false);

@@ -3,16 +3,28 @@ import { toast } from "sonner";
 import YouTubeResults from "../components/YouTubeResults";
 import LoadingState from "../components/LoadingState";
 import { fetchYouTubeResults } from "../utils/SearchAPI.jsx";
+import { Info } from "lucide-react";
 
 const WebYTSearch = ({ initialQuery = "", autoSearch = true }) => {
   const [youtubeResults, setYoutubeResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [pendingSearch, setPendingSearch] = useState(false);
 
-  // Auto-search when initialQuery changes (from a new user message)
+  // Only trigger search when initialQuery is properly set from the server response
   useEffect(() => {
     if (initialQuery && initialQuery.trim() !== "" && autoSearch) {
-      handleSearch(initialQuery);
+      // Set a flag to indicate we're waiting for a valid search query
+      if (!pendingSearch) {
+        setPendingSearch(true);
+        // Add a small delay to ensure we're using the finalized query from the server
+        const searchTimer = setTimeout(() => {
+          handleSearch(initialQuery);
+          setPendingSearch(false);
+        }, 800); // Wait for server response to be processed
+        
+        return () => clearTimeout(searchTimer);
+      }
     }
   }, [initialQuery, autoSearch]);
 
@@ -37,9 +49,15 @@ const WebYTSearch = ({ initialQuery = "", autoSearch = true }) => {
   return (
     <div className="flex flex-col w-full">
       {/* Status indicator */}
-      {autoSearch && initialQuery && !isLoading && (
-        <div className="text-xs px-4 py-1 text-gray-400">
-       
+      {autoSearch && initialQuery && (
+        <div className="text-xs px-4 text-gray-400 flex items-center mb-2">
+          {isLoading ? (
+            <span>Searching for related content...</span>
+          ) : (
+            hasSearched && youtubeResults.length > 0 && (
+              <span></span>
+            )
+          )}
         </div>
       )}
 
@@ -50,25 +68,27 @@ const WebYTSearch = ({ initialQuery = "", autoSearch = true }) => {
         ) : (
           <>
             {hasSearched && youtubeResults.length === 0 ? (
-              <div className="text-center py-10">
-                <p className="text-lg font-medium text-gray-300">No results found</p>
-                <p className="text-sm text-gray-400">Try searching for something else</p>
+              <div className="text-center py-8">
+                <p className="text-sm text-gray-400">No results found for this query</p>
               </div>
             ) : (
               <div className="px-4 w-full">
                 <YouTubeResults results={youtubeResults} />
-                <div className="text-xs px-1 py-1 text-gray-400">
-                Auto-searching based on your query
-                </div>
+                <span className="text-gray-400 text-sm">Found {youtubeResults.length} related videos</span>
               </div>
             )}
           </>
         )}
 
-        {!hasSearched && (
+        {!hasSearched && !pendingSearch && (
           <div className="text-center py-2">
-            <p className="text-lg font-medium text-gray-300">Search for anything to see YouTube results</p>
             <p className="text-sm text-gray-400">Enter your query in the chat to discover videos</p>
+          </div>
+        )}
+        
+        {pendingSearch && !isLoading && (
+          <div className="text-center py-2">
+            <p className="text-sm text-gray-400">Preparing search query...</p>
           </div>
         )}
       </div>

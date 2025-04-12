@@ -23,6 +23,16 @@
   50% { transform: translate(50%, 50%) translateY(-10px); }
 }
 
+.scrollbar-invisible {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollbar-invisible::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
 @layer utilities {
   .animate-float-1 {
     animation: float-1 3s ease-in-out infinite;

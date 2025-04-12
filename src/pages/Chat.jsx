@@ -98,7 +98,7 @@ const Chat = () => {
           </div>
         </div>
 
-        <div className="w-1/4 pr-4 py-4 h-screen overflow-hidden hidden lg:block">
+        <div className="w-1/4 pr-4 py-4 h-screen overflow-hidden hidden lg:block scrollbar-invisible">
           <div className="h-full rounded-2xl shadow-lg flex flex-col">
             <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
               <div className="bg-[url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">

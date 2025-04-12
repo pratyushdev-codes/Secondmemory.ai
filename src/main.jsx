@@ -47,15 +47,7 @@ console.log('Environment check:', {
   nodeEnv: import.meta.env.MODE
 });
 
-// Show a helpful error if the key is missing
-if (!publishableKey) {
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    <div style={{ color: 'white', padding: '20px' }}>
-      <h1>Configuration Error</h1>
-      <p>Missing Clerk publishable key. Check environment variables.</p>
-    </div>
-  );
-} else {
+
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <ClerkProvider publishableKey={publishableKey}>
@@ -63,4 +55,3 @@ if (!publishableKey) {
       </ClerkProvider>
     </React.StrictMode>
   );
-}

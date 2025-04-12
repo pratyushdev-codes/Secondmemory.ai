@@ -87,7 +87,13 @@ const Sidebar = ({ isOpen, onClose }) => {
   const sendWebData = async (e) => {
     e.preventDefault();
 
-
+    const options = {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ url })
+    };
     if (!url) {
       toast.error("Please enter a URL");
       return;
@@ -97,7 +103,20 @@ const Sidebar = ({ isOpen, onClose }) => {
       toast.error("Please enter a valid URL");
       return;
     }
+    try {
+      const res = await fetch('https://secondmemoryai-default-rtdb.firebaseio.com/websiteData.json', options);
 
+      if (res.ok) {
+        console.log("Website Data dispatched to DB");
+        toast.success("Website Uploaded to your Knowledge Base");
+      } else {
+        console.error("Error occurred while saving website details to DB", res.statusText);
+        toast.error("Error occurred while saving website.");
+      }
+    } catch (error) {
+      console.error("Network error while saving website details to DB", error);
+      toast.error("Network error while saving website.");
+    }
     // Start loading state
     setIsLoading(true);
     const loadingToastId = toast.loading("Processing website...", {
@@ -184,14 +203,14 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden "
           onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`
-        fixed lg:static inset-y-0 left-0 z-50 w-70 h-screen 
+      <div className={` 
+        fixed lg:static inset-y-0 left-0 z-50 w-70 h-screen  
         bg-gradient-to-b from-gray-900 to-black border-r border-gray-800/50 
         flex flex-col transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -285,13 +304,13 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           {/* Recent Chats - Scrollable Area */}
-          <div className="flex-1 overflow-y-auto overflow-x-auto px-4 py-6">
+          <div className="flex-1 overflow-y-auto overflow-x-auto scrollbar-invisible px-4 py-6">
             <h1 className="text-lg font-semibold text-gray-400 px-2 mb-4" style={{
               background: "linear-gradient(to bottom, #6b7280, white)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>Recent Chats</h1>
-            <div className="space-y-1">
+            <div className="space-y-1 scrollbar-invisible">
               {chatHistory.length > 0 ? (
                 chatHistory.map((chat, index) => (
                   // Assuming each chat is an object with a "summary" property.

@@ -32,9 +32,10 @@ export const fetchGoogleResults = async (query) => {
 
 export const fetchYouTubeResults = async (query) => {
   try {
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`
-    );
+const response = await fetch(
+  `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`
+);
+
     
     // Add logging to help with debugging
     console.log(`Searching YouTube for: ${query}`);
