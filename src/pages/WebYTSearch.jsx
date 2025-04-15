@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-
+import YouTubeResults from "../components/YouTubeResults.jsx";
 import LoadingState from "../components/LoadingState.jsx";
 import { fetchYouTubeResults } from "../utils/SearchAPI.jsx";
 import { Info } from "lucide-react";
