@@ -1,5 +1,5 @@
 import { Youtube, Info } from "lucide-react"
-const YouTubeResults = ({ results = [] }) => {
+const youtubeResult = ({ results = [] }) => {
   if (!results || results.length === 0) {
     return null
   }
@@ -59,5 +59,5 @@ const YouTubeResults = ({ results = [] }) => {
   )
 }
 
-export default YouTubeResults
+export default youtubeResult
 
