@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { AudioLines, Pause, Play } from 'lucide-react';
 import Typewriter from 'typewriter-effect/dist/core';
+import { getAuth } from "firebase/auth";
 
-const ChatMessageMain = ({ message, userImage }) => {
+const ChatMessageMain = ({ message }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [utterance, setUtterance] = useState(null);
   const [typewriterInstance, setTypewriterInstance] = useState(null);
@@ -78,6 +79,9 @@ const ChatMessageMain = ({ message, userImage }) => {
       setIsPlaying(true);
     }
   };
+    // OAUth Config for firebase:-
+      const auth = getAuth();
+      const user = auth.currentUser;
 
   const formatText = (text) => {
     if (typeof text !== 'string') return text;
@@ -195,9 +199,9 @@ const ChatMessageMain = ({ message, userImage }) => {
 
   return (
     <div className={`flex items-end gap-2 ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-      {message.sender === 'user' && userImage ? (
+      {message.sender === 'user' && user.photoURL  ? (
         <img 
-          src={userImage} 
+          src={ user.photoURL} 
           alt="User" 
           className="w-8 h-8 rounded-full object-cover"
         />

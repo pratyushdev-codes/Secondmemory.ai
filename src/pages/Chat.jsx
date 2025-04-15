@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserButton } from '@clerk/clerk-react';
-import { useClerk } from '@clerk/clerk-react';
+// import { UserButton } from '@clerk/clerk-react';
+// import { useClerk } from '@clerk/clerk-react';
 import Chathistory from '../components/ChatHistory';
 import logo from "../../public/images/supermemoryailogo.svg";
 import date from 'date-and-time';
@@ -14,8 +14,13 @@ import { ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import backgroundImage from '../../public/images/3.jpg';
+import { useAuth } from "./../components/authContext";
+
+
+
+import { auth } from "../components/firebaseConfig.js";
 const Chat = () => {
-  const { user } = useClerk();
+  // const { user } = useClerk();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const handleClick = () => {
@@ -93,15 +98,15 @@ const Chat = () => {
             </div>
           </div>
 
-          <div className="h-[calc(100vh-16.7rem)] rounded-tl-2xl rounded-tr-2xl overflow-hidden shadow-lg bg-[#1a1f37]/80 backdrop-blur-sm border border-gray-700">
+          <div className="h-[calc(100vh-16.7rem)] rounded-tl-2xl rounded-tr-2xl overflow-hidden shadow-lg bg-[#1a1f37]/80 backdrop-blur-sm border border-gray-700 scrollbar-invisible">
             <ChatUI />
           </div>
         </div>
 
         <div className="w-1/4 pr-4 py-4 h-screen overflow-hidden hidden lg:block scrollbar-invisible">
           <div className="h-full rounded-2xl shadow-lg flex flex-col">
-            <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-              <div className="bg-[url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+            <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-invisible">
+              <div className="bg-[url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent scrollbar-invisible">
                 <Data />
               </div>
               <div className=" bg-gradient-to-b to-gray-900 from-black border border-gray-800 rounded-xl p-1">

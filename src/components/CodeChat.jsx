@@ -218,7 +218,7 @@ const CodeChat = () => {
     <div className="flex flex-col h-full border-gray-800/50">
       {/* Header Controls */}
       <div className="flex flex-row justify-center items-center gap-2 p-3 border-b border-gray-700 w-full">
-        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors ">
+        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors hidden 2xl:block">
           <FolderInput size={18} />
         </div>
         <button
@@ -275,7 +275,7 @@ const CodeChat = () => {
 
         <button
           onClick={() => window.location.reload()}
-          className="flex items-center gap-1 px-4 py-1.5 bg-gray-900/80 border border-gray-700/50 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors"
+          className="flex items-center gap-1 px-4 py-1.5 bg-gray-900/80 border border-gray-700/50 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

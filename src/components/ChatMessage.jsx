@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { Bot } from 'lucide-react';
-import { useUser } from '@clerk/clerk-react';
+import { getAuth } from "firebase/auth";
 import Typewriter from 'typewriter-effect/dist/core';
 import ReactMarkdown from 'react-markdown';
 import logo from "../../public/images/supermemoryailogo.svg";
@@ -8,7 +8,11 @@ import { useCode } from '../hooks/CodeContext.jsx';
 
 const ChatMessage = ({ message, isUser }) => {
   const { setCode } = useCode();
-  const { user } = useUser();
+
+
+  // OAUth Config for firebase:-
+    const auth = getAuth();
+    const user = auth.currentUser;
   const typewriterRef = useRef(null);
 
   // Function to extract code blocks
@@ -200,11 +204,12 @@ const ChatMessage = ({ message, isUser }) => {
           : 'bg-black'
       } shadow-lg ring-2 ring-gray-800/50`}>
         {isUser ? (
-          user?.profileImageUrl ? (
+         user.photoURL ? (
             <img 
               className="w-10 h-10 rounded-full" 
-              src={user.profileImageUrl} 
+              src={user.photoURL} 
               alt="User Profile"
+              referrerPolicy="no-referrer" 
             />
           ) : (
             <div className="w-10 h-10 rounded-full flex items-center justify-center text-white">

@@ -32,7 +32,7 @@ function Features() {
 
         {/* Right Column */}
         <div className="flex-1">
-          <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 h-[616px]">
+          <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 h-[616px] sm:block hidden">
             <div className="h-full flex flex-col">
               <h2 className="text-2xl font-light text-white mb-4">Fetching Data from Firebase</h2>
               <div className="flex-1 bg-black/30 rounded-lg p-4 font-mono text-sm text-purple-300">

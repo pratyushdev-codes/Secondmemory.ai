@@ -4,7 +4,7 @@ import { FileList } from './FileList';
 import { FileTypeIcons } from './FileTypeIcons';
 import { AddFileButton } from './AddFileButton';
 import { Toaster, toast } from 'react-hot-toast';
-import AWS from 'aws-sdk';
+
 export function FileUploadCard() {
   const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);

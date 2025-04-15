@@ -5,7 +5,7 @@ import { AppleCardsCarouselDemo } from "../components/AppleCardsCarousel";
 
 import Features from "../components/Features";
 import TechUI from "../components/TechUI";
-import { SignInButton } from "@clerk/clerk-react";
+// import { SignInButton } from "@clerk/clerk-react";
 import UltimateAI from "../components/UltimateAI.jsx";
 
 

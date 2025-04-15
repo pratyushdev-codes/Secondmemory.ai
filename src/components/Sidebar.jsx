@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { GoogleAuthProvider, signOut } from "firebase/auth";
+import { auth, googleProvider } from "./firebaseConfig.js";
 import {
   MessageSquare,
   Terminal,
   LogOut,
   Link,
   Plus,
-  History,
+  History, 
   Chrome,
   X,
   Loader2
 } from 'lucide-react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useClerk } from '@clerk/clerk-react';
+// import { useClerk } from '@clerk/clerk-react';
 import axios from 'axios';
 
 // Simple URL validation function
@@ -21,6 +23,15 @@ const isValidUrl = (urlString) => {
     return Boolean(new URL(urlString));
   } catch(e) {
     return false;
+  }
+};
+
+const handleSignOut = async () => {
+  try {
+    await signOut(auth);
+        console.log("User Signed Out")
+  } catch (error) {
+    console.log("Error signing out", error);  
   }
 };
 
@@ -40,7 +51,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { signOut } = useClerk();
+  // const { signOut } = useClerk();
 
   // Close sidebar on route change
   useEffect(() => {
@@ -87,13 +98,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const sendWebData = async (e) => {
     e.preventDefault();
 
-    const options = {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ url })
-    };
+
     if (!url) {
       toast.error("Please enter a URL");
       return;
@@ -103,20 +108,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       toast.error("Please enter a valid URL");
       return;
     }
-    try {
-      const res = await fetch('https://secondmemoryai-default-rtdb.firebaseio.com/websiteData.json', options);
 
-      if (res.ok) {
-        console.log("Website Data dispatched to DB");
-        toast.success("Website Uploaded to your Knowledge Base");
-      } else {
-        console.error("Error occurred while saving website details to DB", res.statusText);
-        toast.error("Error occurred while saving website.");
-      }
-    } catch (error) {
-      console.error("Network error while saving website details to DB", error);
-      toast.error("Network error while saving website.");
-    }
     // Start loading state
     setIsLoading(true);
     const loadingToastId = toast.loading("Processing website...", {
@@ -189,7 +181,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await signOut();
+      await signOut(auth);
       toast.success("Logged out successfully");
       navigate('/');
     } catch (error) {
@@ -198,19 +190,20 @@ const Sidebar = ({ isOpen, onClose }) => {
     }
   };
 
+
   return (
     <>
       {/* Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden "
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
-      <div className={` 
-        fixed lg:static inset-y-0 left-0 z-50 w-70 h-screen  
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-50 w-70 h-screen 
         bg-gradient-to-b from-gray-900 to-black border-r border-gray-800/50 
         flex flex-col transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -227,14 +220,19 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Header Section */}
           <div className="p-6 space-y-6">
             <div className='flex flex-row gap-2'>
+             
 
 
-              <button className="w-full flex items-center justify-center gap-2 text-ascent-1 p-2 px-3 bg-gray-900/80 border border-gray-700 rounded-full backdrop-blur-sm text-[#409DDB]">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#409DDB">
-                  <path d="M439-82q-76-8-141.5-42.5t-113.5-88Q136-266 108.5-335T81-481q0-155 102.5-268.5T440-880v80q-121 17-200 107.5T161-481q0 121 79 211.5T439-162v80Zm40-198L278-482l57-57 104 104v-245h80v245l103-103 57 58-200 200Zm40 198v-80q43-6 82.5-23t73.5-43l58 58q-47 37-101 59.5T519-82Zm158-652q-35-26-74.5-43T520-800v-80q59 6 113 28.5T733-792l-56 58Zm112 506-56-57q26-34 42-73.5t22-82.5h82q-8 59-30 113.5T789-228Zm8-293q-6-43-22-82.5T733-677l56-57q38 45 61 99.5T879-521h-82Z" />
-                </svg>
-                Download Extension
-              </button>
+
+            <button
+  onClick={() => window.open('https://github.com/pratyushdev-codes/SecondMemory.ai_Extension', '_blank')}
+  className="w-full flex items-center justify-center gap-2 text-ascent-1 p-2 px-3 bg-gray-900/80 border border-gray-700 rounded-full backdrop-blur-sm text-[#409DDB]"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#409DDB">
+    <path d="M439-82q-76-8-141.5-42.5t-113.5-88Q136-266 108.5-335T81-481q0-155 102.5-268.5T440-880v80q-121 17-200 107.5T161-481q0 121 79 211.5T439-162v80Zm40-198L278-482l57-57 104 104v-245h80v245l103-103 57 58-200 200Zm40 198v-80q43-6 82.5-23t73.5-43l58 58q-47 37-101 59.5T519-82Zm158-652q-35-26-74.5-43T520-800v-80q59 6 113 28.5T733-792l-56 58Zm112 506-56-57q26-34 42-73.5t22-82.5h82q-8 59-30 113.5T789-228Zm8-293q-6-43-22-82.5T733-677l56-57q38 45 61 99.5T879-521h-82Z" />
+  </svg>
+  Download Extension
+</button>
             </div>
 
             <h1 className="text-lg font-semibold text-gray-400 px-2" style={{
@@ -304,7 +302,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           {/* Recent Chats - Scrollable Area */}
-          <div className="flex-1 overflow-y-auto overflow-x-auto scrollbar-invisible px-4 py-6">
+          <div className="flex-1 overflow-y-auto overflow-x-auto px-4 py-6 scrollbar-invisible">
             <h1 className="text-lg font-semibold text-gray-400 px-2 mb-4" style={{
               background: "linear-gradient(to bottom, #6b7280, white)",
               WebkitBackgroundClip: "text",

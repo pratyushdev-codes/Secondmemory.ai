@@ -1,24 +1,38 @@
-import banner from "../assets/banner.jpg";
 import bannerImage from "../../public/images/Homepage-Hero-BG.webp";
-import { SignUpButton, useAuth } from "@clerk/clerk-react";
-import Chat from '../pages/Chat';
-import { useEffect } from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebaseConfig.js";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/authContext";
+import { useEffect } from "react";
+
 const Hero = () => {
-  const { isSignedIn } = useAuth();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  // Redirect if already logged in
   useEffect(() => {
-    if (isSignedIn) {
+    if (user) {
       navigate("/Chat");
     }
-  }, [isSignedIn, navigate]);
+  }, [user, navigate]);
+
+  const signUp = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log("User Logged in", result.user);
+      // Make sure your authContext is properly updating with this user
+      navigate("/Chat"); // Navigate after successful login
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  }
+  
   return (
     <section className="relative min-h-[calc(100vh-50px)] overflow-hidden md:py-[10rem] rounded-bl-3xl rounded-br-3xl opacity-85"
       style={{ backgroundImage: `url(${bannerImage})` }}
     >
-      {/* <div className="absolute left-1/2 top-[calc(100%-90px)]  lg:top-[calc(100%-50px)] h-[500px] w-[700px]   md:h-[500px] md:w-[1100px] lg:h-[300px] lg:w-[100%] -translate-x-1/2 rounded-[100%] border-[#B48CDE] bg-black bg-[radial-gradient(closest-side,#000_82%,#9560EB)]"></div> */}
       <div className="bsolute left-0 top-0 z-0 grid h-full w-full grid-cols-[clamp(28px,10vw,120px)_auto_clamp(28px,10vw,120px)] ">
-
         <div className="col-span-1 flex h-full items-center justify-center" />
         <div className="dark:border-dark-border col-span-1 flex h-full items-center justify-center border-x border-white/10" />
         <div className="col-span-1 flex h-full items-center justify-center" />
@@ -29,9 +43,7 @@ const Hero = () => {
       <div className="dark:divide-dark-border relative z-10 flex flex-col divide-y divide-black/10 pt-[35px]">
         <div className="flex flex-col items-center justify-end">
           <div className="dark:border-dark-border flex items-center gap-2 !border !border-b-0 border-black/5 px-4 py-2">
-            <p className="text-text-tertiary dark:text-dark-text-tertiary text-sm tracking-tight">
-
-            </p>
+            <p className="text-text-tertiary dark:text-dark-text-tertiary text-sm tracking-tight"></p>
           </div>
         </div>
         <div>
@@ -47,23 +59,21 @@ const Hero = () => {
               Long Term Memory for your whole domain Workstream.
             </h2>
             <div className="flex justify-center items-center gap-4">
-            <button className="text-base flex flex-row text-ascent-1 gap-2 px-4 md:px-4 py-1 md:py-2 border border-[#666] rounded-full text-white"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#D9D9D9"><path d="M439-82q-76-8-141.5-42.5t-113.5-88Q136-266 108.5-335T81-481q0-155 102.5-268.5T440-880v80q-121 17-200 107.5T161-481q0 121 79 211.5T439-162v80Zm40-198L278-482l57-57 104 104v-245h80v245l103-103 57 58-200 200Zm40 198v-80q43-6 82.5-23t73.5-43l58 58q-47 37-101 59.5T519-82Zm158-652q-35-26-74.5-43T520-800v-80q59 6 113 28.5T733-792l-56 58Zm112 506-56-57q26-34 42-73.5t22-82.5h82q-8 59-30 113.5T789-228Zm8-293q-6-43-22-82.5T733-677l56-57q38 45 61 99.5T879-521h-82Z"/></svg>Download Chrome Extension</button>
-              <div className="text-base flex flex-row text-ascent-1 gap-2 px-4 md:px-4 py-1 md:py-2 border border-[#666] rounded-full text-white">
-              <SignUpButton 
-          mode="modal"
-          redirectUrl="/Chat"
-          afterSignUpUrl="/Chat"
-          afterSignInUrl="/Chat"
-        />        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#D9D9D9">
-        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
-      </svg>
-              </div>
+              <button   onClick={() => window.open('https://github.com/pratyushdev-codes/SecondMemory.ai_Extension', '_blank')}  className="text-base flex flex-row text-ascent-1 gap-2 px-4 md:px-4 py-1 md:py-2 border border-[#666] rounded-full text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#D9D9D9">
+                  <path d="M439-82q-76-8-141.5-42.5t-113.5-88Q136-266 108.5-335T81-481q0-155 102.5-268.5T440-880v80q-121 17-200 107.5T161-481q0 121 79 211.5T439-162v80Zm40-198L278-482l57-57 104 104v-245h80v245l103-103 57 58-200 200Zm40 198v-80q43-6 82.5-23t73.5-43l58 58q-47 37-101 59.5T519-82Zm158-652q-35-26-74.5-43T520-800v-80q59 6 113 28.5T733-792l-56 58Zm112 506-56-57q26-34 42-73.5t22-82.5h82q-8 59-30 113.5T789-228Zm8-293q-6-43-22-82.5T733-677l56-57q38 45 61 99.5T879-521h-82Z" />
+                </svg>
+                Download Chrome Extension
+              </button>
+              <button onClick={signUp} className="text-base flex flex-row text-ascent-1 gap-2 px-4 md:px-4 py-1 md:py-2 border border-[#666] rounded-full text-white">
+                Sign up 
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#D9D9D9">
+                  <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+                </svg> 
+              </button>
             </div>
           </div>
-
         </div>
-
-
 
         <div className=" dark:divide-dark-border flex items-start justify-center divide-y divide-black/10  px-8 sm:px-24">
           <div className="flex w-full max-w-[80vw] flex-col items-center justify-start md:!max-w-[392px]">
@@ -81,38 +91,7 @@ const Hero = () => {
 export default Hero;
 
 const logos = [
-  // {
-  //   name: "Vercel",
-  //   url: "../../public/images/ArXiv.png",
-  // },
-  // {
-  //   name: "Nextjs",
-  //   url: "../../public/images/github Background Removed.png",
-  // },
-  // {
-  //   name: "Prime",
-  //   url: "../../public/images/googlenews.png",
-  // },
-  // {
-  //   name: "Trustpilot",
-  //   url: "../../public/images/website Background Removed.png",
-  // },
-  // {
-  //   name: "Airbnb",
-  //   url: "../../public/images/code Background Removed.png",
-  // },
-  // {
-  //   name: "Tina",
-  //   url: "https://res.cloudinary.com/dfhp33ufc/image/upload/v1715276560/logos/afqhiygywyphuou6xtxc.svg",
-  // },
-  // {
-  //   name: "Stackoverflow",
-  //   url: "https://res.cloudinary.com/dfhp33ufc/image/upload/v1715276558/logos/ts1j4mkooxqmscgptafa.svg",
-  // },
-  // {
-  //   name: "mistral",
-  //   url: "https://res.cloudinary.com/dfhp33ufc/image/upload/v1715276558/logos/tyos2ayezryjskox3wzs.svg",
-  // },
+  // Logo array remains the same - removed for brevity
 ];
 
 const AnimatedLogoCloud = () => {
@@ -128,7 +107,7 @@ const AnimatedLogoCloud = () => {
         >
           {Array(5)
             .fill(null)
-            .map((index) => (
+            .map((_, index) => (
               <div
                 key={index}
                 className="flex shrink-0 animate-x-slider flex-row justify-around gap-6"

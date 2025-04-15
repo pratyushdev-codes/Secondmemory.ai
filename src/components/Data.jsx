@@ -122,8 +122,7 @@ const Data = () => {
 
     return (
       <div role="treeitem" aria-expanded={isOpen}>
-        <div className="py-0.5 flex items-center gap-x-0.5 w-full ">
-          
+        <div className="py-0.5 flex items-center gap-x-0.5 w-full">
           {node.type === 'folder' && (
             <button
               onClick={handleToggle}
@@ -169,7 +168,6 @@ const Data = () => {
             <MoreVertical size={18} />
           </button>
         </div>
-  
 
         <div className="mt-2 scrollbar-invisible" style={{ maxHeight: "80vh", overflow: "auto" }}>
           <div className="flex items-center justify-between">
@@ -183,6 +181,6 @@ const Data = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Data;

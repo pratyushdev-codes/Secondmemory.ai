@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useClerk } from '@clerk/clerk-react';
+import React, { useState } from 'react';
+
 import ChatMessageMain from './ChatMessageMain';
 import { useChatHandler } from '../hooks/useChatHandler';
 import { File, Globe, PlusCircle as CirclePlus } from 'lucide-react';
@@ -50,7 +50,7 @@ const LoadingMessage = () => (
 
 const ChatUI = ({ onSendMessage }) => {
   const { handleNewChat } = useChatHandler();
-  const { user } = useClerk();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeButton, setActiveButton] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -154,72 +154,6 @@ const ChatUI = ({ onSendMessage }) => {
     }
   };
 
-  // const handleSend = async (e) => {
-  //   e.preventDefault();
-    
-  //   if (!newMessage.trim() || isLoading) return;
-    
-  //   let messageToSend = newMessage;
-    
-  //   if (activeButton === 'file') {
-  //     messageToSend = "Answer to the user query from the uploaded PDFs: " + newMessage;
-  //   } else if (activeButton === 'globe') {
-  //     messageToSend = "Answer to the user query from uploaded Website source: " + newMessage;
-  //   }
-
-  //   setIsLoading(true);
-
-  // try {
-  //   if (!firstMessageSent) {
-  //     const summary = await summarizeUserChat(messageToSend);
-  //     await sendUserchatHistory(summary);
-  //     setFirstMessageSent(true);
-  //   }
-
-  //     // Generate search query summary for every message
-  //     await summarizeforgoogleSearch(newMessage);
-      
-  //     const userMessage = {
-  //       id: messages.length + 1,
-  //       text: newMessage,
-  //       sender: 'user',
-  //       timestamp: new Date()
-  //     };
-      
-  //     setMessages(prevMessages => [...prevMessages, userMessage]);
-  //     setNewMessage('');
-  //     handleNewChat();
-
-  //     if (onSendMessage) {
-  //       onSendMessage(newMessage);
-  //     }
-
-  //     const aiResponseText = await chatResponse(messageToSend);
-  //     const aiMessage = {
-  //       id: messages.length + 2,
-  //       text: aiResponseText,
-  //       sender: 'ai',
-  //       timestamp: new Date()
-  //     };
-      
-  //     setMessages(prevMessages => [...prevMessages, aiMessage]);
-  //     setActiveButton(null);
-      
-  //   } catch (error) {
-  //     console.error('Error in handleSend:', error);
-  //     const errorMessage = {
-  //       id: messages.length + 2,
-  //       text: "I apologize, but I encountered an error while processing your request. Please try again.",
-  //       sender: 'ai',
-  //       timestamp: new Date()
-  //     };
-  //     setMessages(prevMessages => [...prevMessages, errorMessage]);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-
 
 const handleSend = async (e) => {
   e.preventDefault();
@@ -305,7 +239,7 @@ const handleSend = async (e) => {
           <ChatMessageMain
             key={message.id}
             message={message}
-            userImage={user?.imageUrl}
+       
           />
         ))}
         {isLoading && <LoadingMessage />}

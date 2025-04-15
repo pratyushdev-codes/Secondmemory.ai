@@ -2,7 +2,7 @@
 
 const UltimateAI = () => {
   return (
-    <div className="w-full relative bg-black text-white p-8 rounded-xl overflow-hidden">
+    <div className="w-full relative bg-black text-white p-8 rounded-xl overflow-hidden sm:block hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-dot-gray-700" />
 
