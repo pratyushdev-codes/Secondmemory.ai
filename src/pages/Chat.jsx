@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import backgroundImage from '../../public/images/3.jpg';
 import { useAuth } from "./../components/authContext";
+import backgroundImagenexx from "../../public/images/nexx.jpg";
+import backgroundImagenexx8 from "../../public/images/nexx8.jpg";
 
 
 
@@ -106,13 +108,17 @@ const Chat = () => {
         <div className="w-1/4 pr-4 py-4 h-screen overflow-hidden hidden lg:block scrollbar-invisible">
           <div className="h-full rounded-2xl shadow-lg flex flex-col">
             <div className="flex-1 p-4 space-y-4 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-invisible">
-              <div className="bg-[image:url('./images/nexx.jpg')] opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent scrollbar-invisible">
+            <div
+  className="opacity-95 border border-gray-700 rounded-xl p-4 h-[260px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent scrollbar-invisible"
+  style={{ backgroundImage: `url(${backgroundImagenexx})` }}
+>
+
                 <Data />
               </div>
               <div className=" bg-gradient-to-b to-gray-900 from-black border border-gray-800 rounded-xl p-1">
                 <Activity />
               </div>
-              <div className="bg-[image:url('./images/nexx8.jpg')] opacity-75 border border-gray-700 bg-cover rounded-xl p-2">
+              <div className=" opacity-75 border border-gray-700 bg-cover rounded-xl p-2"   style={{ backgroundImage: `url(${backgroundImagenexx8})` }}>
                 <FileUploadCard />
               </div>
               {/* "bg-[url('./images/nexx.jpg')] */}
