@@ -10,7 +10,7 @@ const LoadingMessage = () => (
     <div className="w-8 h-8 rounded-full flex-shrink-0">
       <img
         className="w-8 h-8 rounded-full opacity-60"
-        src="../../public/images/AIAvatar.png"
+        src="/images/AIAvatar.png"
         alt="AI Avatar"
       />
     </div>
@@ -218,7 +218,7 @@ const CodeChat = () => {
     <div className="flex flex-col h-full border-gray-800/50">
       {/* Header Controls */}
       <div className="flex flex-row justify-center items-center gap-2 p-3 border-b border-gray-700 w-full">
-        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors hidden 2xl:block">
+        <div className="flex items-center px-4 py-2 bg-gray-900/80 border border-blue-900 rounded-full backdrop-blur-sm hover:bg-gray-800/80 transition-colors hidden xl:block">
           <FolderInput size={18} />
         </div>
         <button
