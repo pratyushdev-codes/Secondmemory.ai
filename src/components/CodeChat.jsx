@@ -4,13 +4,13 @@ import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import { AudioLines, Pause, Play, Github, FolderUp, X, Workflow, BrainCircuit, FolderInput } from 'lucide-react';
 import { useCode } from '../hooks/CodeContext';
-
+import AIAvatar from "../../public/images/AIAvatar.png";
 const LoadingMessage = () => (
   <div className="flex items-start space-x-4">
     <div className="w-8 h-8 rounded-full flex-shrink-0">
       <img
         className="w-8 h-8 rounded-full opacity-60"
-        src="/images/AIAvatar.png"
+        src={AIAvatar}
         alt="AI Avatar"
       />
     </div>
