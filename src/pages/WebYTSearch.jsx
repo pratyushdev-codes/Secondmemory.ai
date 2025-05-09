@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import youtubeResult from "../components/youtubeResult.jsx";
+import YoutubeResult from "../components/youtubeResult.jsx";
 import LoadingState from "../components/LoadingState.jsx";
 import { fetchYouTubeResults } from "../utils/SearchAPI.jsx";
 import { Info } from "lucide-react";
@@ -73,7 +73,7 @@ const WebYTSearch = ({ initialQuery = "", autoSearch = true }) => {
               </div>
             ) : (
               <div className="px-4 w-full">
-                <youtubeResult results={youtubeResults} />
+                <YoutubeResult results={youtubeResults} />
                 <span className="text-gray-400 text-sm">Found {youtubeResults.length} related videos</span>
               </div>
             )}
