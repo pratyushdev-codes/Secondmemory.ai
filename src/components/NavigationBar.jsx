@@ -26,7 +26,7 @@ const NavigationBar = () => {
   
   return (
     <div className="hidden lg:block">
-      <nav className="bg-[#1F2C74] backdrop-blur-sm px-4 py-3 w-1/2 max-w-4xl mx-auto flex items-center justify-between shadow-sm rounded-full border-gray-700 sticky top-0 z-50">
+      <nav className="bg-[#1F2C74] backdrop-blur-sm px-4 py-2 w-1/2 max-w-4xl mx-auto flex items-center justify-between shadow-sm rounded-full border-gray-700 sticky top-0 z-50">
         {user ? (
           <>
             <div className="flex items-center space-x-2">
