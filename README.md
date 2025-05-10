@@ -1,22 +1,22 @@
-# SecondMemory.ai
+# Secondmemory.ai
 
-Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance.
+⚡ Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance.
 
 Imagine having a second brain 🧠 – a tireless, context‑aware assistant that can effortlessly tap into your knowledge, generate code, and even debug your projects. SecondMemory.ai isn't just another AI tool; it's your personalized cognitive companion, designed to augment your abilities and streamline your workflow.
 
-* **🧩Intelligent Knowledge Retrieval**:
+* **🧩 Intelligent Knowledge Retrieval**:
   A production-ready Multi‑Agent Retrieval‑Augmented Generation (RAG) solution built with LangChain and a highly efficient FAISS DB. Experience a 30% improvement in query efficiency as SecondMemory.ai swiftly surfaces the information you need.
 
   * **Upload and build your custom knowledge base using PDF files, websites, and also leverage our in‑built intelligent memory drawn from a pool of research papers from arXiv and Wikipedia.
   * **SecondMemory.ai also searches YouTube and brings you the best videos on your subject.
 
-* **Autonomous Agent Collaboration**:
+* **🧩 Autonomous Agent Collaboration**:
   SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model intelligent agents that can autonomously tackle complex tasks. Imagine agents that can:
 
   * **Code‑Generation Alchemist**: Automatically generate code snippets based on your specifications. Just upload your code to our in‑built code‑editor space to start debugging, generating code, or talking to your own codebase.
   * **Web Researcher**: Seamlessly integrate web‑search capabilities (powered by Serper) to gather real‑time information and enrich responses.
 
-* **Deeply Integrated, Context‑Aware Assistance**:
+* **🧩 Deeply Integrated, Context‑Aware Assistance**:
   SecondMemory.ai isn’t just retrieving information; it understands the context of your requests. It can even:
 
   * **Automated Code Cloning & Response**: Triggered within a Lambda instance, it can clone relevant code and generate insightful responses within your cloud environment.
