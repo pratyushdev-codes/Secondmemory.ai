@@ -60,3 +60,11 @@ SecondMemory.ai isn’t just retrieving information; it understands the context 
 Python, LangChain, Crew AI, ChromaDB, FAISS DB, React.js, Firebase, CRON, Onrender
 
 <img width="1140" alt="Screenshot 2025-05-10 at 6 15 43 PM" src="https://github.com/user-attachments/assets/56fd9e3d-fc80-4dc7-bed5-db4e139dfe27" />
+
+---
+
+Owner - Pratyush Birole
+Email - birole.pratyush@gmail.com
+Github - pratyushdev-codes
+![10298b5802e0e3a3c5b42ac024073087](https://github.com/user-attachments/assets/92339eef-3b53-497f-9343-774e44216045)
+
