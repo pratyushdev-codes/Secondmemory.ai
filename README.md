@@ -2,12 +2,13 @@
 
 Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance.
 
-Imagine having a second brain – a tireless, context‑aware assistant that can effortlessly tap into your knowledge, generate code, and even debug your projects. SecondMemory.ai isn't just another AI tool; it's your personalized cognitive companion, designed to augment your abilities and streamline your workflow.
+Imagine having a second brain 🧠 – a tireless, context‑aware assistant that can effortlessly tap into your knowledge, generate code, and even debug your projects. SecondMemory.ai isn't just another AI tool; it's your personalized cognitive companion, designed to augment your abilities and streamline your workflow.
 
-* **Intelligent Knowledge Retrieval**:
+* **🧩Intelligent Knowledge Retrieval**:
   A production-ready Multi‑Agent Retrieval‑Augmented Generation (RAG) solution built with LangChain and a highly efficient FAISS DB. Experience a 30% improvement in query efficiency as SecondMemory.ai swiftly surfaces the information you need.
-  Upload and build your custom knowledge base using PDF files, websites, and also leverage our in‑built intelligent memory drawn from a pool of research papers from arXiv and Wikipedia.
-  SecondMemory.ai also searches YouTube and brings you the best videos on your subject.
+
+  * **Upload and build your custom knowledge base using PDF files, websites, and also leverage our in‑built intelligent memory drawn from a pool of research papers from arXiv and Wikipedia.
+  * **SecondMemory.ai also searches YouTube and brings you the best videos on your subject.
 
 * **Autonomous Agent Collaboration**:
   SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model intelligent agents that can autonomously tackle complex tasks. Imagine agents that can:
