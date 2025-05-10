@@ -2,6 +2,10 @@
 
 ⚡ Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance.
 
+<img width="1143" alt="Screenshot 2025-05-10 at 6 29 22 PM" src="https://github.com/user-attachments/assets/d02499b6-1c89-4826-a323-8dd9e7c38033" />
+
+---
+
 Imagine having a second brain 🧠 – a tireless, context‑aware assistant that can effortlessly tap into your knowledge, generate code, and even debug your projects. SecondMemory.ai isn't just another AI tool; it's your personalized cognitive companion, designed to augment your abilities and streamline your workflow.
 
 ---
@@ -12,6 +16,9 @@ A production-ready Multi‑Agent Retrieval‑Augmented Generation (RAG) solution
 
 - **Upload and build your custom knowledge base** using PDF files, websites, and also leverage our in‑built intelligent memory drawn from a pool of research papers from arXiv and Wikipedia.
 - **SecondMemory.ai also searches YouTube** and brings you the best videos on your subject.
+  
+![WhatsApp Image 2025-04-15 at 15 56 33](https://github.com/user-attachments/assets/bf7704ff-930f-4ab9-9a64-eae1aa36c3b7)
+![WhatsApp Image 2025-04-21 at 23 53 19](https://github.com/user-attachments/assets/a4f92789-d2bd-4068-a405-2aba6040e1ac)
 
 ---
 
@@ -21,6 +28,9 @@ SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model 
 
 - **Code‑Generation Alchemist**: Automatically generate code snippets based on your specifications. Just upload your code to our in‑built code‑editor space to start debugging, generating code, or talking to your own codebase.
 - **Web Researcher**: Seamlessly integrate web‑search capabilities (powered by Serper) to gather real‑time information and enrich responses.
+- **Automated Code Cloning & Response**: Triggered within a Lambda instance, it can clone relevant code and generate insightful responses within your cloud environment.
+
+![WhatsApp Image 2025-04-02 at 11 39 34 (1)](https://github.com/user-attachments/assets/6acd6583-3e6f-43ee-81f2-fabb181bb27d)
 
 ---
 
@@ -28,7 +38,6 @@ SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model 
 
 SecondMemory.ai isn’t just retrieving information; it understands the context of your requests. It can even:
 
-- **Automated Code Cloning & Response**: Triggered within a Lambda instance, it can clone relevant code and generate insightful responses within your cloud environment.
 - **Optimized Vector Embeddings**: We’ve fine‑tuned vector‑embedding creation, achieving a 40% optimization through:
   - **Cosine Similarity Search**: Ensuring highly relevant information retrieval.
   - **Content‑Based Segmentation**: Breaking down your knowledge into meaningful chunks for more precise analysis.
@@ -49,3 +58,5 @@ SecondMemory.ai isn’t just retrieving information; it understands the context 
 ## Tech Stack
 
 Python, LangChain, Crew AI, ChromaDB, FAISS DB, React.js, Firebase, CRON, Onrender
+
+<img width="1140" alt="Screenshot 2025-05-10 at 6 15 43 PM" src="https://github.com/user-attachments/assets/56fd9e3d-fc80-4dc7-bed5-db4e139dfe27" />
