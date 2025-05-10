@@ -1,6 +1,6 @@
 # Secondmemory.ai
 
-⚡ Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance.
+Build a smart, enduring knowledge base for your workstream with deeply integrated, context‑aware AI assistance. ⚡ 
 
 <img width="1143" alt="Screenshot 2025-05-10 at 6 29 22 PM" src="https://github.com/user-attachments/assets/d02499b6-1c89-4826-a323-8dd9e7c38033" />
 
