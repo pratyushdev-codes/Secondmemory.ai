@@ -19,6 +19,7 @@ A production-ready Multi‑Agent Retrieval‑Augmented Generation (RAG) solution
   
 ![WhatsApp Image 2025-04-15 at 15 56 33](https://github.com/user-attachments/assets/bf7704ff-930f-4ab9-9a64-eae1aa36c3b7)
 ![WhatsApp Image 2025-04-21 at 23 53 19](https://github.com/user-attachments/assets/a4f92789-d2bd-4068-a405-2aba6040e1ac)
+![WhatsApp Image 2025-04-02 at 11 39 15](https://github.com/user-attachments/assets/823a5b51-b910-414e-ab08-71c389c4c9fc)
 
 ---
 
@@ -31,6 +32,8 @@ SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model 
 - **Automated Code Cloning & Response**: Triggered within a Lambda instance, it can clone relevant code and generate insightful responses within your cloud environment.
 
 ![WhatsApp Image 2025-04-02 at 11 39 34 (1)](https://github.com/user-attachments/assets/6acd6583-3e6f-43ee-81f2-fabb181bb27d)
+![WhatsApp Image 2025-04-02 at 11 39 42](https://github.com/user-attachments/assets/8a3e300c-9536-4b02-ace3-638de491537e)
+
 
 ---
 
