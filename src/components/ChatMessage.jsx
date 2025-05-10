@@ -202,7 +202,7 @@ const ChatMessage = ({ message, isUser }) => {
         isUser 
           ? 'bg-gradient-to-br from-blue-500 to-blue-600' 
           : 'bg-black'
-      } shadow-lg ring-2 ring-gray-800/50`}>
+      } shadow-lg `}>
         {isUser ? (
          user.photoURL ? (
             <img 
@@ -218,7 +218,7 @@ const ChatMessage = ({ message, isUser }) => {
           )
         ) : (
           <img 
-            className="w-8 h-8 rounded-full opacity-60" 
+            className="w-9 h-9 rounded-full opacity-60" 
             src="/images/AIAvatar.png"
             alt="AI Avatar"
           />
