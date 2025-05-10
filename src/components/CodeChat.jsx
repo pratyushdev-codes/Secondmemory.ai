@@ -10,7 +10,7 @@ const LoadingMessage = () => (
     <div className="w-8 h-8 rounded-full flex-shrink-0">
       <img
         className="w-8 h-8 rounded-full opacity-60"
-        src="../assets/AIAvatar.png"
+         src="/images/AIAvatar.png"
         alt="AI Avatar"
       />
     </div>
