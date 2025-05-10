@@ -52,10 +52,10 @@ SecondMemory.ai isn’t just retrieving information; it understands the context 
 
 | Feature                   | GitHub Repo                                                                                                                                 | Description                                                                             |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Multisource RAG**       | [Secondmemory.ai_MultisourceRAG](https://github.com/pratyushdev-codes/Secondmemory.ai_MultisourceRAG)                                       | Multi‑source Retrieval‑Augmented Generation Python backend for querying user documents. |
-| **Code Database QA**      | [SecondMemory.ai_CodeQA](https://github.com/pratyushdev-codes/SecondMemory.ai_CodeQA)                                                       | Backend for Code‑Querying Agent                                                         |
-| **Code Generation Agent** | [SecondMemory.ai_CodeGenAgent](https://github.com/pratyushdev-codes/Secondmemory.ai_CodeGenAgent)                                           | Deeply integrated code‑generation agent using Crew AI and Serper API                    |
-| **Browser Extension**     | [SecondMemory.ai_Extension](https://github.com/pratyushdev-codes/SecondMemory.ai_Extension)                                                 | Browser extension for saving or bookmarking websites directly into your knowledge base  |
+| **Multisource RAG**       | [Multisource RAG](https://github.com/pratyushdev-codes/Secondmemory.ai_MultisourceRAG)                                       | Multi‑source Retrieval‑Augmented Generation Python backend for querying user documents. |
+| **Code Database QA**      | [Codebase Q/A](https://github.com/pratyushdev-codes/SecondMemory.ai_CodeQA)                                                       | Backend for Code‑Querying Agent                                                         |
+| **Code Generation Agent** | [CodeGen Agent](https://github.com/pratyushdev-codes/Secondmemory.ai_CodeGenAgent)                                           | Deeply integrated code‑generation agent using Crew AI and Serper API                    |
+| **Browser Extension**     | [Broswer Extension](https://github.com/pratyushdev-codes/SecondMemory.ai_Extension)                                                 | Browser extension for saving or bookmarking websites directly into your knowledge base  |
 
 ---
 
