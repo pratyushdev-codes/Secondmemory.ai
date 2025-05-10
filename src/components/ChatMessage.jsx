@@ -219,7 +219,7 @@ const ChatMessage = ({ message, isUser }) => {
         ) : (
           <img 
             className="w-8 h-8 rounded-full opacity-60" 
-            src="../../public/images/AIAvatar.png" 
+            src="/images/AIAvatar.png"
             alt="AI Avatar"
           />
         )}
