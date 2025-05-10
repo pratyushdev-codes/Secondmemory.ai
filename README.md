@@ -16,6 +16,7 @@ A production-ready Multi‑Agent Retrieval‑Augmented Generation (RAG) solution
 
 - **Upload and build your custom knowledge base** using PDF files, websites, and also leverage our in‑built intelligent memory drawn from a pool of research papers from arXiv and Wikipedia.
 - **SecondMemory.ai also searches YouTube** and brings you the best videos on your subject.
+- **Browser Extension** for bookmarking or adding any website to your knowledge base while scrolling the internet from any website.
   
 ![WhatsApp Image 2025-04-15 at 15 56 33](https://github.com/user-attachments/assets/bf7704ff-930f-4ab9-9a64-eae1aa36c3b7)
 ![WhatsApp Image 2025-04-21 at 23 53 19](https://github.com/user-attachments/assets/a4f92789-d2bd-4068-a405-2aba6040e1ac)
