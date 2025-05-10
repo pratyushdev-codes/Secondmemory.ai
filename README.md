@@ -63,8 +63,8 @@ Python, LangChain, Crew AI, ChromaDB, FAISS DB, React.js, Firebase, CRON, Onrend
 
 ---
 
-Owner - Pratyush Birole
-Email - birole.pratyush@gmail.com
-Github - pratyushdev-codes
-![10298b5802e0e3a3c5b42ac024073087](https://github.com/user-attachments/assets/92339eef-3b53-497f-9343-774e44216045)
+ -Owner - Pratyush Birole
+ -Email - birole.pratyush@gmail.com
+ -Github - pratyushdev-codes
+
 
