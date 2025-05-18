@@ -46,6 +46,8 @@ SecondMemory.ai isn’t just retrieving information; it understands the context 
   - **Cosine Similarity Search**: Ensuring highly relevant information retrieval.
   - **Content‑Based Segmentation**: Breaking down your knowledge into meaningful chunks for more precise analysis.
 
+<img width="1470" alt="SecondmemoryAI_Architecture" src="https://github.com/user-attachments/assets/856cf359-0e41-41e0-8a86-ca1c7cdec647" />
+
 ---
 
 ## Backend, RAG, and AI Agent Repositories
