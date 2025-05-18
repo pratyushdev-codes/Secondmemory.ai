@@ -65,6 +65,7 @@ Python, LangChain, Crew AI, ChromaDB, FAISS DB, React.js, Firebase, CRON, Onrend
 
 <img width="1140" alt="Screenshot 2025-05-10 at 6 15 43 PM" src="https://github.com/user-attachments/assets/56fd9e3d-fc80-4dc7-bed5-db4e139dfe27" />
 
+## Project exhibited at United School of Computational Intelligence(USCI), Ahmedabad
 ---
 ![RAG](https://github.com/user-attachments/assets/6b11c84c-8172-4cec-82fc-51d7ab0d206d)
 
