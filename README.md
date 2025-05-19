@@ -34,6 +34,8 @@ SecondMemory.ai harnesses the collaborative power of AI agents and RAG to model 
 
 ![WhatsApp Image 2025-04-02 at 11 39 34 (1)](https://github.com/user-attachments/assets/6acd6583-3e6f-43ee-81f2-fabb181bb27d)
 ![WhatsApp Image 2025-04-02 at 11 39 42](https://github.com/user-attachments/assets/8a3e300c-9536-4b02-ace3-638de491537e)
+<img width="1465" alt="Screenshot 2025-05-19 at 7 44 42 PM" src="https://github.com/user-attachments/assets/c5a9ce12-57cb-48ff-b80a-e63e2e9b6faf" />
+
 
 
 ---
