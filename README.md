@@ -73,6 +73,10 @@ Python, LangChain, Crew AI, ChromaDB, FAISS DB, React.js, Firebase, CRON, Onrend
 ![RAG](https://github.com/user-attachments/assets/6b11c84c-8172-4cec-82fc-51d7ab0d206d)
 
 ---
+## Secondmemory.ai's Chrome Extension
+<img width="1465" alt="image" src="https://github.com/user-attachments/assets/6a6e130d-10dd-42b4-b3a9-eef241b9e9e3" />
+
+---
 ## Project exhibited at United School of Computational Intelligence(USCI), Ahmedabad
 
 ![USCI Tech Summit](https://github.com/user-attachments/assets/dcef4fc0-22b1-4460-9c88-140df24b9644)
